@@ -9,7 +9,7 @@ export function AosInit() {
       duration: 650,
       easing: "ease-out-cubic",
       offset: 70,
-      once: true,
+      once: false,
     });
     AOS.refresh();
   }, []);

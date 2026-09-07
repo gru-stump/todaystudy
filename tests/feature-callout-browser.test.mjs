@@ -260,7 +260,7 @@ test("desktop visual details at a 1440px viewport", async (t) => {
     assert.equal(value.selectedTab, "flow-tab-1");
   });
 
-  await t.test("reveals page sections once with AOS while scrolling", async () => {
+  await t.test("replays AOS when a section re-enters the viewport", async () => {
     const animation = await cdp.call("Runtime.evaluate", {
       expression: `(async () => {
         const target = document.querySelector('.pricing__copy[data-aos]');
@@ -272,14 +272,18 @@ test("desktop visual details at a 1440px viewport", async (t) => {
         const initialized = target.classList.contains('aos-init');
         target.scrollIntoView({ block: 'center' });
         await new Promise((resolve) => setTimeout(resolve, 250));
-        const animatedIn = target.classList.contains('aos-animate');
+        const firstEntry = target.classList.contains('aos-animate');
         window.scrollTo({ top: 0 });
+        await new Promise((resolve) => setTimeout(resolve, 250));
+        const resetOutsideViewport = !target.classList.contains('aos-animate');
+        target.scrollIntoView({ block: 'center' });
         await new Promise((resolve) => setTimeout(resolve, 250));
         return {
           animation: target.getAttribute('data-aos'),
           initialized,
-          animatedIn,
-          remainsVisible: target.classList.contains('aos-animate'),
+          firstEntry,
+          resetOutsideViewport,
+          secondEntry: target.classList.contains('aos-animate'),
         };
       })()`,
       awaitPromise: true,
@@ -289,8 +293,9 @@ test("desktop visual details at a 1440px viewport", async (t) => {
     assert.deepEqual(animation.result.value, {
       animation: "fade-right",
       initialized: true,
-      animatedIn: true,
-      remainsVisible: true,
+      firstEntry: true,
+      resetOutsideViewport: true,
+      secondEntry: true,
     });
   });
 });
