@@ -1331,10 +1331,14 @@ summary {
   position: absolute;
   z-index: 3;
   display: flex;
-  gap: 10px;
-  min-width: 188px;
-  padding: 14px 16px;
-  border: 1px solid #4c6800;
+  width: 174px;
+  height: 79px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 10px;
+  border: 0.5px solid #4c6800;
   border-radius: 8px;
   background: #10120d;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
@@ -1343,6 +1347,7 @@ summary {
 .feature-callout--overview {
   top: 70px;
   left: 37%;
+  width: 169px;
 }
 
 .feature-callout--action {
@@ -1350,24 +1355,106 @@ summary {
   left: 0;
 }
 
-.feature-callout > span {
-  color: var(--lime);
+.feature-callout > img {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.feature-callout > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
 }
 
 .feature-callout b {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: nowrap;
 }
 
 .feature-callout p {
-  margin: 5px 0 0;
+  margin: 0;
   color: #9ba096;
-  font-size: 8px;
+  font-size: 12px;
+  font-weight: 500;
   line-height: 1.5;
+  white-space: nowrap;
 }
 
 .testimonials {
   padding: 92px 0;
+}
+
+@media (min-width: 1232px) {
+  .feature-showcase {
+    height: 280px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .feature-showcase__inner {
+    position: relative;
+    height: 280px;
+  }
+
+  .feature-showcase__copy {
+    position: absolute;
+    top: 77px;
+    left: 0;
+    width: 326px;
+  }
+
+  .feature-showcase__copy .section-label {
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .feature-showcase h2 {
+    margin: 0;
+    font-size: 32px;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .feature-showcase__copy > p {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  .management-stage {
+    position: absolute;
+    top: 44px;
+    left: 503px;
+    width: 681px;
+    margin: 0;
+    transform: none;
+  }
+
+  .management-dashboard--artwork,
+  .management-dashboard--artwork img {
+    width: 681px;
+    height: 236px;
+    max-width: none;
+  }
+
+  .feature-callout--overview {
+    top: 69px;
+    left: 367px;
+    width: 169px;
+  }
+
+  .feature-callout--action {
+    top: 213px;
+    left: 0;
+    width: 174px;
+  }
 }
 
 .testimonials__grid {

@@ -103,11 +103,11 @@ export function FeatureShowcaseSection() {
           <p>누구나 쉽게, 그러나 강력하게 사용할 수 있도록<br />오늘의 스터디는 사용성을 최우선으로 설계했습니다.</p>
         </div>
         <div className="feature-callout feature-callout--overview">
-          <span aria-hidden="true">✦</span>
-          <div><b>한눈에 확인</b><p>필요한 정보와 오늘의 업무를<br />한 화면에서</p></div>
+          <Image aria-hidden="true" alt="" height={16} src="/img/feature-overview.svg" unoptimized width={16} />
+          <div><b>한눈에 확인</b><p>필요한 정보와<br />오늘의 업무를 한 화면에서</p></div>
         </div>
         <div className="feature-callout feature-callout--action">
-          <span aria-hidden="true">ϟ</span>
+          <Image aria-hidden="true" alt="" height={16} src="/img/feature-action.svg" unoptimized width={16} />
           <div><b>빠르게 처리</b><p>반복되는 업무는 줄이고,<br />클릭은 최소한으로</p></div>
         </div>
         <div className="management-stage">
