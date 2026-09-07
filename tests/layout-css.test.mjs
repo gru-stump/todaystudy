@@ -20,6 +20,11 @@ test("keeps the desktop hero artwork fully contained", () => {
   assert.match(css, /\.hero-devices[^}]*justify-self:\s*end;/s);
 });
 
+test("prevents the hero copy and artwork from overflowing narrow screens", () => {
+  assert.match(css, /\.hero__copy,\s*\.hero-devices[^}]*min-width:\s*0;/s);
+  assert.match(css, /\.hero-devices__image[^}]*max-width:\s*100%;/s);
+});
+
 test("crops the desktop attendance artwork and reveals it on mobile", () => {
   assert.match(
     css,

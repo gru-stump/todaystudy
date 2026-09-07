@@ -2,6 +2,7 @@ export type NavItem = { label: string; href: string };
 export type Benefit = { icon: string; title: string; description: string };
 export type FlowStep = {
   number: string;
+  phase: "BEFORE CLASS" | "CHECK-IN" | "IN CLASS" | "ANALYZE" | "CONNECT";
   tab: string;
   title: string;
   description: string;
@@ -58,6 +59,7 @@ export const benefits: Benefit[] = [
 export const flowSteps: FlowStep[] = [
   {
     number: "01",
+    phase: "BEFORE CLASS",
     tab: "수업준비",
     title: "수업준비",
     description: "수업 전 체크리스트로 준비를 완벽하게 끝냅니다.",
@@ -65,6 +67,7 @@ export const flowSteps: FlowStep[] = [
   },
   {
     number: "02",
+    phase: "CHECK-IN",
     tab: "학생 등원",
     title: "빠른 체크인",
     description: "QR과 태블릿으로 등원 상태를 자동 기록합니다.",
@@ -72,6 +75,7 @@ export const flowSteps: FlowStep[] = [
   },
   {
     number: "03",
+    phase: "IN CLASS",
     tab: "수업 진행",
     title: "수업 집중",
     description: "수업 중 필요한 학생 정보와 기록을 한 화면에 모읍니다.",
@@ -79,6 +83,7 @@ export const flowSteps: FlowStep[] = [
   },
   {
     number: "04",
+    phase: "ANALYZE",
     tab: "성장 분석",
     title: "데이터 분석",
     description: "출결과 학습 데이터를 학생별 성장 리포트로 연결합니다.",
@@ -86,6 +91,7 @@ export const flowSteps: FlowStep[] = [
   },
   {
     number: "05",
+    phase: "CONNECT",
     tab: "학부모 소통",
     title: "학부모 연결",
     description: "수업 결과와 공지를 필요한 순간에 정확하게 전달합니다.",

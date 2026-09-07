@@ -107,19 +107,35 @@ test("renders the supplied TodayStudy artwork in every visual section", async ()
 
   for (const asset of [
     "todaystudy_logo.svg",
-    "hero_mockup.png",
+    "hero_mockup_complete.png",
     "graduationcap.png",
     "chart.png",
     "comment.png",
     "shield.png",
     "features_moockup.png",
     "cramclassflow_01.png",
-    "image%2039.png",
+    "cramclassflow_02-1.png",
+    "cramclassflow_02-2.png",
+    "cramclassflow_03_bg.png",
+    "cramclassflow_03_people.png",
+    "cramclassflow_03_memo.png",
+    "cramclassflow_04_dashboard.png",
+    "cramclassflow_04_people.png",
+    "cramclassflow_05_bg.png",
+    "smartsimple_mockup.png",
     "review_01.png",
     "review_02.png",
     "review_03.png",
     "cta_bg.png",
   ]) {
     assert.match(html, new RegExp(`/img/${asset.replace(".", "\\.")}`));
+  }
+});
+
+test("renders one distinct visual panel for every academy workflow phase", async () => {
+  const html = await (await render()).text();
+
+  for (const phase of ["BEFORE CLASS", "CHECK-IN", "IN CLASS", "ANALYZE", "CONNECT"]) {
+    assert.match(html, new RegExp(`data-flow-phase="${phase}"`));
   }
 });

@@ -6,10 +6,10 @@ export function HeroDevices() {
       <Image
         alt="오늘의스터디 태블릿과 모바일 학습 관리 화면"
         className="hero-devices__image"
-        height={638}
-        src="/img/hero_mockup.png"
+        height={1103}
+        src="/img/hero_mockup_complete.png"
         unoptimized
-        width={827}
+        width={1426}
       />
     </div>
   );
@@ -34,10 +34,10 @@ export function ManagementDashboard() {
     <div className="management-dashboard management-dashboard--artwork">
       <Image
         alt="오늘의스터디 학원 통합 관리 대시보드"
-        height={236}
-        src="/img/image%2039.png"
+        height={711}
+        src="/img/smartsimple_mockup.png"
         unoptimized
-        width={681}
+        width={2049}
       />
     </div>
   );
