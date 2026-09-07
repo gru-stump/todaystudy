@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const developmentPreviewMeta =
@@ -81,4 +82,22 @@ test("renders proof, pricing, final CTA, and contact information", async () => {
   assert.match(html, /내일/);
   assert.match(html, /이 달라집니다/);
   assert.match(html, /sales@primers\.co\.kr/);
+});
+
+test("publishes social metadata without the starter preview runtime", async () => {
+  const html = await (await render()).text();
+  const packageJson = JSON.parse(
+    await readFile(new URL("../package.json", import.meta.url), "utf8"),
+  );
+
+  assert.match(html, /property="og:title"/);
+  assert.match(html, /property="og:image" content="http:\/\/localhost\/og\.png"/);
+  assert.match(html, /name="twitter:card" content="summary_large_image"/);
+  assert.equal(packageJson.dependencies?.["react-loading-skeleton"], undefined);
+  await assert.rejects(
+    access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)),
+  );
+  await assert.rejects(
+    access(new URL("../app/_sites-preview/preview.css", import.meta.url)),
+  );
 });
