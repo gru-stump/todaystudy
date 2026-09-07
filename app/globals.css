@@ -8,7 +8,7 @@
   --surface: #f4f5f2;
   --line: #e4e7e0;
   --white: #ffffff;
-  --container: 1200px;
+  --container: 1280px;
 }
 
 * {
@@ -241,9 +241,9 @@ summary {
 
 .hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(540px, 1.08fr);
+  grid-template-columns: minmax(0, 620px) minmax(0, 1fr);
   align-items: center;
-  gap: 40px;
+  gap: 16px;
 }
 
 .hero__copy {
@@ -2032,10 +2032,11 @@ summary {
 
 .hero-devices {
   display: flex;
-  width: min(650px, 100%);
+  width: min(720px, 100%);
   height: auto;
   margin: 0;
   align-items: center;
+  justify-self: end;
   justify-content: center;
   transform: none;
 }
@@ -2047,11 +2048,14 @@ summary {
   display: block;
   width: 100%;
   height: auto;
+  object-fit: contain;
 }
 
 .attendance-artwork {
   width: 100%;
+  max-height: 360px;
   align-self: end;
+  padding-top: 48px;
   overflow: hidden;
   border-radius: 22px 22px 0 0;
   filter: drop-shadow(0 24px 34px rgba(24, 31, 17, 0.13));
@@ -2106,7 +2110,14 @@ summary {
   .hero-devices {
     width: min(680px, 100%);
     margin: 4px auto 0;
+    justify-self: center;
     transform: none;
+  }
+
+  .attendance-artwork {
+    max-height: none;
+    padding-top: 0;
+    overflow: visible;
   }
 
   .management-stage {
