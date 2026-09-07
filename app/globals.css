@@ -25,7 +25,7 @@ body {
   overflow-x: clip;
   background: var(--white);
   color: var(--ink);
-  font-family: "Pretendard Variable", "Pretendard", var(--font-geist-sans), "Noto Sans KR", Arial, sans-serif;
+  font-family: "Pretendard Variable", "Pretendard", var(--font-geist-sans, "Noto Sans KR"), Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -2214,8 +2214,7 @@ summary {
   }
 
   [data-aos] {
-    opacity: 1 !important;
-    transform: none !important;
+    transition-duration: 650ms !important;
   }
 }
 

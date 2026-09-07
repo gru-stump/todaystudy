@@ -208,6 +208,22 @@ test("desktop visual details at a 1440px viewport", async (t) => {
     });
   });
 
+  await t.test("uses Pretendard even when the Geist variable is unavailable", async () => {
+    const font = await cdp.call("Runtime.evaluate", {
+      expression: `(() => {
+        document.body.style.setProperty('--font-geist-sans', 'initial');
+        return {
+          family: getComputedStyle(document.body).fontFamily,
+          geistVariable: getComputedStyle(document.body).getPropertyValue('--font-geist-sans'),
+        };
+      })()`,
+      returnByValue: true,
+    });
+
+    assert.equal(font.result.value.geistVariable, "");
+    assert.match(font.result.value.family, /Pretendard Variable/);
+  });
+
   await t.test("extends the class-flow line and moves its point when the next step opens", async () => {
     const animation = await cdp.call("Runtime.evaluate", {
       expression: `(async () => {
@@ -297,5 +313,61 @@ test("desktop visual details at a 1440px viewport", async (t) => {
       resetOutsideViewport: true,
       secondEntry: true,
     });
+  });
+
+  await t.test("keeps AOS visible under the platform reduced-motion setting", async () => {
+    await cdp.call("Emulation.setEmulatedMedia", {
+      features: [{ name: "prefers-reduced-motion", value: "reduce" }],
+    });
+    await cdp.call("Page.navigate", {
+      url: `http://127.0.0.1:${sitePort}/?motion=reduce`,
+    });
+    await waitFor(async () => {
+      const ready = await cdp.call("Runtime.evaluate", {
+        expression: "document.readyState",
+        returnByValue: true,
+      });
+      return ready.result.value === "complete";
+    });
+
+    const animation = await cdp.call("Runtime.evaluate", {
+      expression: `(async () => {
+        window.scrollTo({ top: 0 });
+        const target = document.querySelector('.pricing__copy[data-aos]');
+        if (!target) return null;
+
+        for (let attempt = 0; attempt < 20 && !target.classList.contains('aos-init'); attempt += 1) {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+        }
+        await new Promise((resolve) => setTimeout(resolve, 150));
+        const initialStyle = getComputedStyle(target);
+        const initialOpacity = Number.parseFloat(initialStyle.opacity);
+        const duration = Math.max(
+          ...initialStyle.transitionDuration
+            .split(',')
+            .map((value) => Number.parseFloat(value) * (value.includes('ms') ? 0.001 : 1)),
+        );
+
+        target.scrollIntoView({ block: 'center' });
+        await new Promise((resolve) => setTimeout(resolve, 180));
+        const middleOpacity = Number.parseFloat(getComputedStyle(target).opacity);
+        await new Promise((resolve) => setTimeout(resolve, 700));
+        return {
+          duration,
+          finalOpacity: Number.parseFloat(getComputedStyle(target).opacity),
+          initialOpacity,
+          middleOpacity,
+        };
+      })()`,
+      awaitPromise: true,
+      returnByValue: true,
+    });
+
+    const value = animation.result.value;
+    assert.notEqual(value, null);
+    assert.ok(value.initialOpacity < 0.05, `initial opacity was ${value.initialOpacity}`);
+    assert.ok(value.duration >= 0.6, `transition duration was ${value.duration}s`);
+    assert.ok(value.middleOpacity > 0 && value.middleOpacity < 1, `middle opacity was ${value.middleOpacity}`);
+    assert.ok(value.finalOpacity > 0.99, `final opacity was ${value.finalOpacity}`);
   });
 });
