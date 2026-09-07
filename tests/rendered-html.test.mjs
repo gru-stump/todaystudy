@@ -147,3 +147,30 @@ test("labels every academy workflow tab with its English phase", async () => {
     assert.match(html, new RegExp(`<small class="flow-tab__phase">${phase}</small>`));
   }
 });
+
+test("renders the Figma workflow workspace and state-specific copy", async () => {
+  const html = await (await render()).text();
+
+  assert.match(html, /class="flow-workspace\s/);
+
+  for (const title of [
+    "오늘의 준비 체크리스트",
+    "오늘의 등원 체크",
+    "오늘의 수업 포인트",
+    "오늘의 분석 체크",
+    "오늘의 공유 항목",
+  ]) {
+    assert.match(html, new RegExp(title));
+  }
+
+  for (const sentence of [
+    "반별 수업 정보, 교재, 출결까지 한눈에 확인해보세요.",
+    "등원 현황부터 지각ㆍ결석 상태까지 한눈에 확인해보세요.",
+    "메모와 피드백까지 기록되어 모든 수업 기록이 한 흐름으로 연결됩니다.",
+    "꾸준한 소통으로 학부모의 신뢰를 더욱 단단하게 만듭니다.",
+  ]) {
+    assert.match(html, new RegExp(sentence));
+  }
+
+  assert.match(html, /처음 단계 보기/);
+});

@@ -58,3 +58,22 @@ test("marks the active class-flow step with a black progress dot", () => {
     /\.flow-tab\[aria-selected="true"\]::after\s*{[^}]*border:\s*3px\s+solid\s+#11130f;[^}]*border-radius:\s*50%;/s,
   );
 });
+
+test("matches the desktop Figma class-flow artboard geometry", () => {
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.class-flow\s*{[^}]*height:\s*528px;[^}]*padding:\s*44px\s+0\s+0;[^}]*overflow:\s*hidden;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.flow-intro\s*{[^}]*grid-template-columns:\s*290px\s+914px;[^}]*gap:\s*76px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.flow-workspace\s*{[^}]*width:\s*770px;[^}]*height:\s*332px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.flow-check-card\s*{[^}]*width:\s*229px;[^}]*height:\s*207px;[^}]*padding:\s*32px;/,
+  );
+});

@@ -5,8 +5,10 @@ export type FlowStep = {
   phase: "BEFORE CLASS" | "CHECK-IN" | "IN CLASS" | "ANALYZE" | "CONNECT";
   tab: string;
   title: string;
-  description: string;
+  description: [string, string];
+  checklistTitle: string;
   checklist: string[];
+  ctaLabel: string;
 };
 export type Testimonial = {
   quote: string;
@@ -62,40 +64,65 @@ export const flowSteps: FlowStep[] = [
     phase: "BEFORE CLASS",
     tab: "수업준비",
     title: "수업준비",
-    description: "수업 전 체크리스트로 준비를 완벽하게 끝냅니다.",
-    checklist: ["출결 반영 여부 확인", "교재 및 자료 준비", "출결 기기 연결 확인", "알림 설정 확인"],
+    description: [
+      "수업 전 체크리스트로 준비를 완벽하게!",
+      "반별 수업 정보, 교재, 출결까지 한눈에 확인해보세요.",
+    ],
+    checklistTitle: "오늘의 준비 체크리스트",
+    checklist: ["출결 반/수업 확인", "교재 및 자료 준비", "출결 기기 연결 확인", "알림 설정 확인"],
+    ctaLabel: "다음 단계 보기",
   },
   {
     number: "02",
     phase: "CHECK-IN",
     tab: "학생 등원",
-    title: "빠른 체크인",
-    description: "QR과 태블릿으로 등원 상태를 자동 기록합니다.",
-    checklist: ["학생 QR 확인", "등원 시간 기록", "지각 자동 분류", "학부모 알림 발송"],
+    title: "학생 등원",
+    description: [
+      "학생이 도착하면 출결이 자동으로 정리됩니다.",
+      "등원 현황부터 지각ㆍ결석 상태까지 한눈에 확인해보세요.",
+    ],
+    checklistTitle: "오늘의 등원 체크",
+    checklist: ["출결 반/수업 확인", "교재 및 자료 준비", "출결 기기 연결 확인", "알림 설정 확인"],
+    ctaLabel: "다음 단계 보기",
   },
   {
     number: "03",
     phase: "IN CLASS",
     tab: "수업 진행",
-    title: "수업 집중",
-    description: "수업 중 필요한 학생 정보와 기록을 한 화면에 모읍니다.",
-    checklist: ["오늘의 수업 확인", "학생별 메모", "과제 등록", "특이사항 공유"],
+    title: "수업 진행",
+    description: [
+      "수업 중 실시간으로 진도와 과제, 학생 상태를 한눈에 관리하세요.",
+      "메모와 피드백까지 기록되어 모든 수업 기록이 한 흐름으로 연결됩니다.",
+    ],
+    checklistTitle: "오늘의 수업 포인트",
+    checklist: ["수업 자료와 진도 확인", "학생별 과제 및 오답 체크", "개별 메모와 피드백 기록", "수업 기록 자동 저장"],
+    ctaLabel: "다음 단계 보기",
   },
   {
     number: "04",
     phase: "ANALYZE",
     tab: "성장 분석",
-    title: "데이터 분석",
-    description: "출결과 학습 데이터를 학생별 성장 리포트로 연결합니다.",
-    checklist: ["출결 추이 분석", "과제 수행 확인", "성취도 비교", "상담 자료 생성"],
+    title: "성장 분석",
+    description: [
+      "출결과 학습 데이터를 한데 모아 성장 흐름을 분석하세요.",
+      "AI 요약과 다음 학습 방향까지 한눈에 확인할 수 있습니다.",
+    ],
+    checklistTitle: "오늘의 분석 체크",
+    checklist: ["출결/학습 데이터 자동 수집", "학생별 성취도 비교", "AI 리포트 요약 확인", "다음 학습 방향 제안"],
+    ctaLabel: "다음 단계 보기",
   },
   {
     number: "05",
     phase: "CONNECT",
     tab: "학부모 소통",
-    title: "학부모 연결",
-    description: "수업 결과와 공지를 필요한 순간에 정확하게 전달합니다.",
-    checklist: ["수업 결과 공유", "상담 일정 안내", "공지 발송", "확인 여부 추적"],
+    title: "학부모 소통",
+    description: [
+      "수업 결과와 메시지를 간편하게 공유하고,",
+      "꾸준한 소통으로 학부모의 신뢰를 더욱 단단하게 만듭니다.",
+    ],
+    checklistTitle: "오늘의 공유 항목",
+    checklist: ["수업 결과 요약 전달", "출결ㆍ과제 현황 공유", "개별 코멘트 및 상담 연결", "알림 발송 내역 확인"],
+    ctaLabel: "처음 단계 보기",
   },
 ];
 

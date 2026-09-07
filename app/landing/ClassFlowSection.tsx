@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { flowSteps } from "./content";
 import { moveFlowIndex } from "./flow-state.mjs";
-import { CheckMark, SectionLabel } from "./ui";
+import { SectionLabel } from "./ui";
+
+const sceneNames = ["before", "checkin", "class", "analyze", "connect"] as const;
 
 function FlowScene({ index }: { index: number }) {
   if (index === 0) {
@@ -28,7 +30,7 @@ function FlowScene({ index }: { index: number }) {
     return (
       <div className="flow-scene flow-scene--class">
         <Image className="flow-scene__class-bg" alt="수업을 진행하는 선생님" height={933} src="/img/cramclassflow_03_bg.png" unoptimized width={2289} />
-        <Image className="flow-scene__participation" alt="학생 참여도 기록" height={390} src="/img/cramclassflow_03_people.png" unoptimized width={774} />
+        <Image className="flow-scene__participation" alt="학생 참여 현황" height={390} src="/img/cramclassflow_03_people.png" unoptimized width={774} />
         <Image className="flow-scene__memo" alt="수업 메모 기록" height={357} src="/img/cramclassflow_03_memo.png" unoptimized width={774} />
       </div>
     );
@@ -46,12 +48,9 @@ function FlowScene({ index }: { index: number }) {
   return (
     <div className="flow-scene flow-scene--connect">
       <Image alt="학부모가 수업 소식을 확인하는 모습" height={333} src="/img/cramclassflow_05_bg.png" unoptimized width={763} />
-      <span className="flow-message flow-message--top">오늘 수업도 잘 참여했어요!</span>
-      <span className="flow-message flow-message--bottom">학습 리포트가 도착했습니다.</span>
     </div>
   );
 }
-
 export function ClassFlowSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -72,29 +71,31 @@ export function ClassFlowSection() {
     <section className="class-flow" aria-labelledby="flow-title">
       <div className="container">
         <div className="flow-intro">
-          <div>
+          <div className="flow-intro__copy">
             <SectionLabel>CRAM CLASS FLOW</SectionLabel>
             <h2 id="flow-title">학원의 하루,<br />오늘의 스터디와 함께</h2>
           </div>
           <div className="flow-tabs" role="tablist" aria-label="학원 업무 흐름">
             {flowSteps.map((step, index) => (
-              <button
-                aria-controls={"flow-panel-" + index}
-                aria-selected={activeIndex === index}
-                className="flow-tab"
-                id={"flow-tab-" + index}
-                key={step.number}
-                onClick={() => selectStep(index)}
-                onKeyDown={handleKeyDown}
-                ref={(node) => { tabRefs.current[index] = node; }}
-                role="tab"
-                tabIndex={activeIndex === index ? 0 : -1}
-                type="button"
-              >
-                <span>{step.number}</span>
-                <small className="flow-tab__phase">{step.phase}</small>
-                <b>{step.tab}</b>
-              </button>
+              <Fragment key={step.number}>
+                <button
+                  aria-controls={"flow-panel-" + index}
+                  aria-selected={activeIndex === index}
+                  className="flow-tab"
+                  id={"flow-tab-" + index}
+                  onClick={() => selectStep(index)}
+                  onKeyDown={handleKeyDown}
+                  ref={(node) => { tabRefs.current[index] = node; }}
+                  role="tab"
+                  tabIndex={activeIndex === index ? 0 : -1}
+                  type="button"
+                >
+                  <span>{step.number}</span>
+                  <small className="flow-tab__phase">{step.phase}</small>
+                  <b>{step.tab}</b>
+                </button>
+                {index < flowSteps.length - 1 ? <i className="flow-tab-divider" aria-hidden="true" /> : null}
+              </Fragment>
             ))}
           </div>
         </div>
@@ -108,26 +109,37 @@ export function ClassFlowSection() {
             key={step.number}
             role="tabpanel"
           >
-            <article className="flow-check-card">
-              <small>오늘의 준비 체크리스트</small>
-              <ul>
-                {step.checklist.map((item) => (
-                  <li key={item}><CheckMark />{item}</li>
-                ))}
-              </ul>
-            </article>
-            <FlowScene index={index} />
+            <div className={"flow-workspace flow-workspace--" + sceneNames[index]}>
+              <article className="flow-check-card">
+                <strong>{step.checklistTitle}</strong>
+                <ul>
+                  {step.checklist.map((item) => (
+                    <li key={item}>
+                      <Image aria-hidden="true" alt="" height={20} src="/img/flow_check.svg" unoptimized width={20} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+              <FlowScene index={index} />
+            </div>
             <div className="flow-copy">
-              <SectionLabel>{step.number}/05</SectionLabel>
-              <small>{step.phase}</small>
+              <span className="flow-step-count">
+                <b>{step.number}</b>
+                <small> / 05</small>
+              </span>
+              <small className="flow-copy__phase">{step.phase}</small>
               <h3>{step.title}</h3>
-              <p>{step.description}<br />필요한 업무를 한눈에 확인하세요.</p>
+              <div className="flow-copy__description">
+                {step.description.map((line) => <p key={line}>{line}</p>)}
+              </div>
               <button
-                className="flow-next"
+                className={"flow-next" + (index === flowSteps.length - 1 ? " flow-next--primary" : "")}
                 onClick={() => selectStep(moveFlowIndex(index, 1, flowSteps.length))}
                 type="button"
               >
-                다음 단계 보기 →
+                {step.ctaLabel}
+                <Image aria-hidden="true" alt="" height={16} src="/img/flow_arrow.svg" unoptimized width={16} />
               </button>
             </div>
           </div>
