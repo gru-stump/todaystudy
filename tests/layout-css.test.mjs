@@ -6,6 +6,9 @@ const css = await readFile(
   new URL("../app/globals.css", import.meta.url),
   "utf8",
 );
+const heroPng = await readFile(
+  new URL("../public/img/hero_mockup.png", import.meta.url),
+);
 
 test("caps the shared page container at 1280px", () => {
   assert.match(css, /--container:\s*1280px;/);
@@ -20,9 +23,28 @@ test("keeps the desktop hero artwork fully contained", () => {
   assert.match(css, /\.hero-devices[^}]*justify-self:\s*end;/s);
 });
 
+test("uses the full-resolution Figma hero source", () => {
+  assert.equal(heroPng.readUInt32BE(16), 3000);
+  assert.equal(heroPng.readUInt32BE(20), 2000);
+});
+
+test("frames the full hero source without clipping the device artwork", () => {
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.hero-devices\s*{[^}]*width:\s*916px;[^}]*height:\s*638px;[^}]*overflow:\s*hidden;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.hero-devices__image\s*{[^}]*left:\s*-488px;[^}]*top:\s*-200px;[^}]*width:\s*1701px;[^}]*height:\s*1134px;/,
+  );
+});
+
 test("prevents the hero copy and artwork from overflowing narrow screens", () => {
   assert.match(css, /\.hero__copy,\s*\.hero-devices[^}]*min-width:\s*0;/s);
-  assert.match(css, /\.hero-devices__image[^}]*max-width:\s*100%;/s);
+  assert.match(
+    css,
+    /\.hero-devices\s*{[^}]*aspect-ratio:\s*916\s*\/\s*638;[^}]*overflow:\s*hidden;/s,
+  );
   assert.match(
     css,
     /@media\s*\(max-width:\s*560px\)[\s\S]*\.hero h1\s*{[^}]*font-size:\s*34px;/,
@@ -132,7 +154,7 @@ test("positions the desktop hero and attendance artwork from the Figma frame", (
   );
   assert.match(
     css,
-    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.hero-devices__image\s*{[^}]*width:\s*827px;[^}]*height:\s*638px;/,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.hero-devices__image\s*{[^}]*width:\s*1701px;[^}]*height:\s*1134px;/,
   );
   assert.match(
     css,

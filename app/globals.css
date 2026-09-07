@@ -2263,12 +2263,19 @@ summary {
 
 .hero-devices {
   width: min(700px, 100%);
-  overflow: visible;
+  aspect-ratio: 916 / 638;
+  overflow: hidden;
 }
 
 .hero-devices__image {
-  max-width: 100%;
-  background: #fff;
+  position: absolute;
+  left: -53.3%;
+  top: -31.35%;
+  width: 185.7%;
+  height: 177.7%;
+  max-width: none;
+  object-fit: contain;
+  background: transparent;
 }
 
 .flow-panel[hidden] {
@@ -3010,12 +3017,15 @@ summary {
     display: block;
     width: 916px;
     height: 638px;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .hero-devices__image {
-    width: 827px;
-    height: 638px;
+    position: absolute;
+    left: -488px;
+    top: -200px;
+    width: 1701px;
+    height: 1134px;
     max-width: none;
     object-fit: contain;
     background: transparent;
