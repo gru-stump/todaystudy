@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,14 +7,10 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Starter Project",
-  description: "A clean starting point for building your site.",
+  title: "오늘의스터디 | 학원 운영 관리 플랫폼",
+  description:
+    "학생의 오늘을 기록하고 내일의 성장을 만드는 학원 운영 관리 플랫폼",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -27,12 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="ko">
+      <body className={geistSans.variable}>{children}</body>
     </html>
   );
 }

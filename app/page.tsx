@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { SkeletonPreview } from "./_sites-preview/SkeletonPreview";
+import { Header } from "./landing/Header";
+import { HeroSection } from "./landing/sections";
 
 export const metadata: Metadata = {
-  title: "Your site is taking shape",
+  title: "오늘의스터디 | 학원 운영 관리 플랫폼",
   description:
-    "Your first version will appear here automatically when it’s ready.",
-  other: {
-    "codex-preview": "development",
-  },
+    "학생의 오늘을 기록하고 내일의 성장을 만드는 학원 운영 관리 플랫폼",
 };
 
 export default function Home() {
-  return <SkeletonPreview />;
+  return (
+    <>
+      <Header />
+      <main>
+        <HeroSection />
+      </main>
+    </>
+  );
 }
