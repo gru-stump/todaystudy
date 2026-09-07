@@ -209,16 +209,11 @@ test("preserves the exact desktop Figma title line breaks", () => {
   }
 });
 
-test("positions both desktop smart-and-simple callouts from the Figma frame", () => {
+test("positions the overview desktop callout from the Figma frame", () => {
   assert.match(
     css,
     /@media\s*\(min-width:\s*1328px\)[\s\S]*\.feature-callout--overview\s*{[^}]*top:\s*69px;[^}]*left:\s*367px;/,
   );
-  assert.match(
-    css,
-    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.feature-callout--action\s*{[^}]*top:\s*213px;[^}]*left:\s*0;/,
-  );
-  assert.doesNotMatch(css, /\.feature-callout--action\s*{[^}]*left:\s*-503px;/s);
 });
 
 test("matches the Figma testimonial typography", () => {

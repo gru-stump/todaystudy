@@ -59,7 +59,7 @@ async function connectCdp(url) {
   };
 }
 
-test("keeps the Figma callout geometry at a 1280px viewport", async (t) => {
+test("anchors the action callout to the mockup's right edge at a 1280px viewport", async (t) => {
   const projectRoot = resolve(import.meta.dirname, "..");
   const sitePort = await reservePort();
   const debugPort = await reservePort();
@@ -127,12 +127,13 @@ test("keeps the Figma callout geometry at a 1280px viewport", async (t) => {
     expression: `(() => {
       const section = document.querySelector('.feature-showcase').getBoundingClientRect();
       const inner = document.querySelector('.feature-showcase__inner').getBoundingClientRect();
-      const read = (selector) => {
+      const stage = document.querySelector('.management-stage').getBoundingClientRect();
+      const read = (selector, relateToStage = false) => {
         const element = document.querySelector(selector);
         const rect = element.getBoundingClientRect();
         const copy = element.querySelector('p');
         const icon = element.querySelector('img');
-        return {
+        const geometry = {
           x: Math.round(rect.left - inner.left),
           y: Math.round(rect.top - section.top),
           width: Math.round(rect.width),
@@ -140,10 +141,15 @@ test("keeps the Figma callout geometry at a 1280px viewport", async (t) => {
           copyHeight: Math.round(copy.getBoundingClientRect().height),
           iconSize: icon ? Math.round(icon.getBoundingClientRect().width) : 0,
         };
+        if (relateToStage) {
+          geometry.edgeDelta = Math.round((rect.left + rect.width / 2) - stage.right);
+          geometry.stageY = Math.round(rect.top - stage.top);
+        }
+        return geometry;
       };
       return {
         overview: read('.feature-callout--overview'),
-        action: read('.feature-callout--action'),
+        action: read('.feature-callout--action', true),
       };
     })()`,
     returnByValue: true,
@@ -151,6 +157,15 @@ test("keeps the Figma callout geometry at a 1280px viewport", async (t) => {
 
   assert.deepEqual(result.result.value, {
     overview: { x: 367, y: 69, width: 169, height: 79, copyHeight: 36, iconSize: 16 },
-    action: { x: 0, y: 213, width: 174, height: 79, copyHeight: 36, iconSize: 16 },
+    action: {
+      x: 1097,
+      y: 149,
+      width: 174,
+      height: 79,
+      copyHeight: 36,
+      iconSize: 16,
+      edgeDelta: 0,
+      stageY: 105,
+    },
   });
 });

@@ -1351,8 +1351,9 @@ summary {
 }
 
 .feature-callout--action {
-  top: 135px;
-  left: 0;
+  top: 105px;
+  right: -87px;
+  left: auto;
 }
 
 .feature-callout > img {
@@ -1451,8 +1452,9 @@ summary {
   }
 
   .feature-callout--action {
-    top: 213px;
-    left: 0;
+    top: 105px;
+    right: -87px;
+    left: auto;
     width: 174px;
   }
 }
@@ -1985,7 +1987,8 @@ summary {
   }
 
   .feature-callout--action {
-    left: 0;
+    right: -40px;
+    left: auto;
   }
 
   .testimonials__grid,
@@ -3336,8 +3339,9 @@ summary {
   }
 
   .feature-callout--action {
-    top: 213px;
-    left: 0;
+    top: 105px;
+    right: -87px;
+    left: auto;
   }
 
   .testimonials {

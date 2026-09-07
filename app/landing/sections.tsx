@@ -106,12 +106,12 @@ export function FeatureShowcaseSection() {
           <Image aria-hidden="true" alt="" height={16} src="/img/feature-overview.svg" unoptimized width={16} />
           <div><b>한눈에 확인</b><p>필요한 정보와<br />오늘의 업무를 한 화면에서</p></div>
         </div>
-        <div className="feature-callout feature-callout--action">
-          <Image aria-hidden="true" alt="" height={16} src="/img/feature-action.svg" unoptimized width={16} />
-          <div><b>빠르게 처리</b><p>반복되는 업무는 줄이고,<br />클릭은 최소한으로</p></div>
-        </div>
         <div className="management-stage">
           <ManagementDashboard />
+          <div className="feature-callout feature-callout--action">
+            <Image aria-hidden="true" alt="" height={16} src="/img/feature-action.svg" unoptimized width={16} />
+            <div><b>빠르게 처리</b><p>반복되는 업무는 줄이고,<br />클릭은 최소한으로</p></div>
+          </div>
         </div>
       </div>
     </section>
