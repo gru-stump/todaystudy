@@ -921,10 +921,6 @@ summary {
 .class-flow {
   padding: 58px 0 84px;
   background-color: #f5f6f3;
-  background-image:
-    linear-gradient(rgba(26, 30, 23, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 30, 23, 0.035) 1px, transparent 1px);
-  background-size: 22px 22px;
 }
 
 .flow-intro {
@@ -2181,10 +2177,45 @@ summary {
 }
 
 .flow-panel {
+  position: relative;
+  isolation: isolate;
   grid-template-columns: minmax(190px, 0.7fr) minmax(430px, 1.65fr) minmax(210px, 0.8fr);
   gap: 26px;
   min-height: 420px;
   padding-top: 42px;
+}
+
+.flow-panel::before {
+  position: absolute;
+  z-index: -1;
+  top: 54px;
+  right: 236px;
+  bottom: 0;
+  left: 0;
+  border-radius: 20px 20px 0 0;
+  background-color: rgba(255, 255, 255, 0.72);
+  background-image:
+    linear-gradient(rgba(26, 30, 23, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 30, 23, 0.055) 1px, transparent 1px);
+  background-size: 22px 22px;
+  content: "";
+}
+
+.flow-check-card {
+  position: relative;
+  z-index: 2;
+}
+
+.flow-check-card::before {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 124px;
+  height: 30px;
+  background: var(--lime);
+  content: "";
+  opacity: 0.88;
+  transform: translateX(-50%) rotate(2deg);
 }
 
 .flow-scene {
@@ -2327,11 +2358,22 @@ summary {
     grid-template-columns: minmax(175px, 0.7fr) minmax(370px, 1.5fr) minmax(190px, 0.8fr);
     gap: 18px;
   }
+
+  .flow-panel::before {
+    right: 208px;
+  }
 }
 
 @media (max-width: 900px) {
   .flow-panel {
     grid-template-columns: minmax(190px, 0.65fr) minmax(0, 1.35fr);
+  }
+
+  .flow-panel::before {
+    top: 56px;
+    right: 0;
+    bottom: auto;
+    height: 340px;
   }
 
   .flow-copy {
@@ -2355,6 +2397,11 @@ summary {
 
   .flow-panel {
     grid-template-columns: 1fr;
+  }
+
+  .flow-panel::before {
+    top: 235px;
+    height: 300px;
   }
 
   .flow-scene {

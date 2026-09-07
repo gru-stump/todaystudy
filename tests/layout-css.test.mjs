@@ -35,3 +35,13 @@ test("crops the desktop attendance artwork and reveals it on mobile", () => {
     /@media\s*\(max-width:\s*900px\)[\s\S]*\.attendance-artwork[^}]*max-height:\s*none;/,
   );
 });
+
+test("limits the class-flow grid texture to the mockup workspace", () => {
+  const sectionRule = css.match(/\.class-flow\s*{([^}]*)}/s)?.[1] ?? "";
+
+  assert.doesNotMatch(sectionRule, /background-image/);
+  assert.match(
+    css,
+    /\.flow-panel::before\s*{[^}]*background-image:\s*linear-gradient[^}]*linear-gradient/s,
+  );
+});
