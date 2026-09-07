@@ -1,14 +1,16 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 export function BrandMark() {
   return (
     <span className="brand-mark" aria-label="오늘의스터디">
-      <span className="brand-mark__symbol" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-      </span>
-      <span>오늘의스터디</span>
+      <Image
+        alt=""
+        height={26}
+        src="/img/todaystudy_logo.svg"
+        unoptimized
+        width={168}
+      />
     </span>
   );
 }

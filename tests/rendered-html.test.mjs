@@ -101,3 +101,25 @@ test("publishes social metadata without the starter preview runtime", async () =
     access(new URL("../app/_sites-preview/preview.css", import.meta.url)),
   );
 });
+
+test("renders the supplied TodayStudy artwork in every visual section", async () => {
+  const html = await (await render()).text();
+
+  for (const asset of [
+    "todaystudy_logo.svg",
+    "hero_mockup.png",
+    "graduationcap.png",
+    "chart.png",
+    "comment.png",
+    "shield.png",
+    "features_moockup.png",
+    "cramclassflow_01.png",
+    "image%2039.png",
+    "review_01.png",
+    "review_02.png",
+    "review_03.png",
+    "cta_bg.png",
+  ]) {
+    assert.match(html, new RegExp(`/img/${asset.replace(".", "\\.")}`));
+  }
+});

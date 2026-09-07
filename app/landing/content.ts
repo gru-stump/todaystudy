@@ -12,6 +12,8 @@ export type Testimonial = {
   name: string;
   role: string;
   image: string;
+  imageWidth: number;
+  imageHeight: number;
 };
 export type PricingPlan = {
   name: string;
@@ -32,22 +34,22 @@ export const navItems: NavItem[] = [
 
 export const benefits: Benefit[] = [
   {
-    icon: "⌂",
+    icon: "/img/graduationcap.png",
     title: "현장 중심 설계",
     description: "학원 운영 경험을 누구보다 잘 아는 사람들이 직접 설계했습니다.",
   },
   {
-    icon: "▥",
+    icon: "/img/chart.png",
     title: "데이터 성장",
     description: "축적된 데이터를 통해 학생의 성장을 예측하고 관리합니다.",
   },
   {
-    icon: "▣",
+    icon: "/img/comment.png",
     title: "소통의 연결",
     description: "학생과 학부모, 학원이 소통하도록 가까이 돕습니다.",
   },
   {
-    icon: "◆",
+    icon: "/img/shield.png",
     title: "안전한 보안",
     description: "중요한 데이터는 안전하게 암호화되어 보호됩니다.",
   },
@@ -96,19 +98,25 @@ export const testimonials: Testimonial[] = [
     quote: "수업이 더 체계적으로 바뀌고 운영 시간을 줄일 수 있었어요.",
     name: "김수연 원장",
     role: "서울 봄빛학원 · 예시 후기",
-    image: "/testimonials.png",
+    image: "/img/review_01.png",
+    imageWidth: 280,
+    imageHeight: 346,
   },
   {
     quote: "운영 현황과 학습 데이터를 한눈에 보며 훨씬 효율적입니다.",
     name: "박도윤 원장",
     role: "대전 이음학원 · 예시 후기",
-    image: "/testimonials.png",
+    image: "/img/review_02.png",
+    imageWidth: 317,
+    imageHeight: 394,
   },
   {
     quote: "학부모와의 소통이 빨라지고 놓치는 일이 줄었습니다.",
     name: "이하린 원장",
     role: "부산 나래학원 · 예시 후기",
-    image: "/testimonials.png",
+    image: "/img/review_03.png",
+    imageWidth: 280,
+    imageHeight: 347,
   },
 ];
 

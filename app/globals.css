@@ -2022,3 +2022,129 @@ summary {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Supplied production artwork */
+.brand-mark img {
+  display: block;
+  width: 132px;
+  height: auto;
+}
+
+.hero-devices {
+  display: flex;
+  width: min(650px, 100%);
+  height: auto;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  transform: none;
+}
+
+.hero-devices__image,
+.attendance-artwork img,
+.flow-device--artwork img,
+.management-dashboard--artwork img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.attendance-artwork {
+  width: 100%;
+  align-self: end;
+  overflow: hidden;
+  border-radius: 22px 22px 0 0;
+  filter: drop-shadow(0 24px 34px rgba(24, 31, 17, 0.13));
+}
+
+.benefit-card__icon {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.flow-device.flow-device--artwork {
+  min-height: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.management-dashboard.management-dashboard--artwork {
+  min-height: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.34);
+}
+
+.testimonial-card__portrait {
+  display: block;
+  aspect-ratio: auto;
+  object-fit: cover;
+  background: none;
+}
+
+.final-cta {
+  background-color: var(--ink);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.final-cta::before {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .hero-devices {
+    width: min(680px, 100%);
+    margin: 4px auto 0;
+    transform: none;
+  }
+
+  .management-stage {
+    width: min(720px, 100%);
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .brand-mark img {
+    width: 116px;
+  }
+
+  .hero-devices {
+    width: 100%;
+    margin: 8px 0 0;
+    transform: none;
+  }
+
+  .attendance-artwork {
+    border-radius: 14px 14px 0 0;
+  }
+
+  .flow-device.flow-device--artwork {
+    min-height: 0;
+  }
+
+  .management-stage {
+    width: 100%;
+    margin: 34px 0 0;
+    transform: none;
+  }
+
+  .feature-callout {
+    display: none;
+  }
+
+  .testimonial-card__portrait {
+    aspect-ratio: auto;
+  }
+}

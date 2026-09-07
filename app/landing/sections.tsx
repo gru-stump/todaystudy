@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { benefits, pricingPlans, testimonials } from "./content";
 import {
   AttendanceDashboard,
@@ -47,7 +48,14 @@ export function BenefitsSection() {
         <div className="benefit-grid">
           {benefits.map((benefit) => (
             <article className="benefit-card" key={benefit.title}>
-              <span className="benefit-card__icon" aria-hidden="true">{benefit.icon}</span>
+              <Image
+                alt=""
+                className="benefit-card__icon"
+                height={48}
+                src={benefit.icon}
+                unoptimized
+                width={48}
+              />
               <h3>{benefit.title}</h3>
               <p>{benefit.description}</p>
             </article>
@@ -125,13 +133,15 @@ export function TestimonialsSection() {
           </div>
         </div>
         <div className="testimonial-grid">
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial) => (
             <article className="testimonial-card" key={testimonial.name}>
-              <div
-                aria-label={testimonial.name + " 인터뷰 이미지"}
-                className={"testimonial-card__portrait testimonial-card__portrait--" + (index + 1)}
-                role="img"
-                style={{ backgroundImage: "url(" + testimonial.image + ")" }}
+              <Image
+                alt={testimonial.name + " 인터뷰"}
+                className="testimonial-card__portrait"
+                height={testimonial.imageHeight}
+                src={testimonial.image}
+                unoptimized
+                width={testimonial.imageWidth}
               />
               <div className="testimonial-card__quote">
                 <span aria-hidden="true">“</span>
@@ -197,7 +207,11 @@ export function PricingSection() {
 
 export function FinalCtaSection() {
   return (
-    <section className="final-cta" aria-labelledby="final-cta-title">
+    <section
+      className="final-cta"
+      aria-labelledby="final-cta-title"
+      style={{ backgroundImage: "url('/img/cta_bg.png')" }}
+    >
       <div className="container final-cta__inner">
         <SectionLabel>PRICING</SectionLabel>
         <h2 id="final-cta-title">지금 시작하면,<br />학원의 <em>내일</em>이 달라집니다.</h2>
