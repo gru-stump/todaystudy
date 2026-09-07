@@ -92,6 +92,7 @@ export function ClassFlowSection() {
                 type="button"
               >
                 <span>{step.number}</span>
+                <small className="flow-tab__phase">{step.phase}</small>
                 <b>{step.tab}</b>
               </button>
             ))}

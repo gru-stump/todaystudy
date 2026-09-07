@@ -45,3 +45,16 @@ test("limits the class-flow grid texture to the mockup workspace", () => {
     /\.flow-panel::before\s*{[^}]*background-image:\s*linear-gradient[^}]*linear-gradient/s,
   );
 });
+
+test("connects the class-flow directly to the next section", () => {
+  const sectionRule = css.match(/\.class-flow\s*{([^}]*)}/s)?.[1] ?? "";
+
+  assert.match(sectionRule, /padding:\s*58px\s+0\s+0;/);
+});
+
+test("marks the active class-flow step with a black progress dot", () => {
+  assert.match(
+    css,
+    /\.flow-tab\[aria-selected="true"\]::after\s*{[^}]*border:\s*3px\s+solid\s+#11130f;[^}]*border-radius:\s*50%;/s,
+  );
+});

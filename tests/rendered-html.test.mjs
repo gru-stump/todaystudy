@@ -139,3 +139,11 @@ test("renders one distinct visual panel for every academy workflow phase", async
     assert.match(html, new RegExp(`data-flow-phase="${phase}"`));
   }
 });
+
+test("labels every academy workflow tab with its English phase", async () => {
+  const html = await (await render()).text();
+
+  for (const phase of ["BEFORE CLASS", "CHECK-IN", "IN CLASS", "ANALYZE", "CONNECT"]) {
+    assert.match(html, new RegExp(`<small class="flow-tab__phase">${phase}</small>`));
+  }
+});
