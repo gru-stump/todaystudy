@@ -1,5 +1,6 @@
-import { HeroDevices } from "./mockups";
-import { CtaLink } from "./ui";
+import { benefits } from "./content";
+import { AttendanceDashboard, HeroDevices } from "./mockups";
+import { CheckMark, CtaLink, SectionLabel } from "./ui";
 
 export function HeroSection() {
   return (
@@ -29,6 +30,53 @@ export function HeroSection() {
         <span aria-hidden="true" />
         scroll
       </a>
+    </section>
+  );
+}
+
+export function BenefitsSection() {
+  return (
+    <section className="dark-section benefits" id="about" aria-labelledby="benefits-title">
+      <div className="container">
+        <SectionLabel>WHY TODAYSTUDY</SectionLabel>
+        <h2 id="benefits-title">학원을 가장 잘 아는<br />사람들이 만들었습니다</h2>
+        <div className="benefit-grid">
+          {benefits.map((benefit) => (
+            <article className="benefit-card" key={benefit.title}>
+              <span className="benefit-card__icon" aria-hidden="true">{benefit.icon}</span>
+              <h3>{benefit.title}</h3>
+              <p>{benefit.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const attendanceChecks = [
+  "QR체크인 출석 지원",
+  "지각 · 조퇴 · 결석 자동 구분",
+  "학부모 실시간 알림 발송",
+  "출석 통계 및 리포트 제공",
+];
+
+export function AttendanceSection() {
+  return (
+    <section className="attendance" id="features" aria-labelledby="attendance-title">
+      <div className="container attendance__grid">
+        <div className="section-copy">
+          <SectionLabel>FEATURES</SectionLabel>
+          <h2 id="attendance-title">태블릿으로 끝내는<br />출석 체크와 자동 알림</h2>
+          <p>태블릿으로 간편하게 출결을 관리하고,<br />실시간으로 학부모에게 알림을 전송하세요.</p>
+          <ul className="check-list">
+            {attendanceChecks.map((item) => (
+              <li key={item}><CheckMark />{item}</li>
+            ))}
+          </ul>
+        </div>
+        <AttendanceDashboard />
+      </div>
     </section>
   );
 }

@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Header } from "./landing/Header";
-import { HeroSection } from "./landing/sections";
+import {
+  AttendanceSection,
+  BenefitsSection,
+  HeroSection,
+} from "./landing/sections";
 
 export const metadata: Metadata = {
   title: "오늘의스터디 | 학원 운영 관리 플랫폼",
@@ -14,6 +18,8 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
+        <BenefitsSection />
+        <AttendanceSection />
       </main>
     </>
   );

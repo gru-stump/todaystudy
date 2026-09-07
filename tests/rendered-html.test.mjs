@@ -41,3 +41,15 @@ test("server-renders the TodayStudy landing hero", async () => {
   assert.doesNotMatch(html, developmentPreviewMeta);
   assert.doesNotMatch(html, /Building your site|Your site is taking shape/);
 });
+
+test("renders the benefits and attendance product story", async () => {
+  const html = await (await render()).text();
+  assert.match(html, /학원을 가장 잘 아는/);
+  assert.match(html, /현장 중심 설계/);
+  assert.match(html, /데이터 성장/);
+  assert.match(html, /소통의 연결/);
+  assert.match(html, /안전한 보안/);
+  assert.match(html, /태블릿으로 끝내는/);
+  assert.match(html, /출석 체크와 자동 알림/);
+  assert.match(html, /QR체크인 출석 지원/);
+});

@@ -617,6 +617,307 @@ summary {
   content: "";
 }
 
+.section-label {
+  margin: 0 0 15px;
+  color: var(--lime);
+  font-size: 11px;
+  font-weight: 860;
+  letter-spacing: 0.1em;
+}
+
+.dark-section {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.benefits {
+  padding: 76px 0 70px;
+}
+
+.benefits h2,
+.section-copy h2 {
+  margin: 0;
+  font-size: clamp(31px, 3vw, 46px);
+  font-weight: 850;
+  letter-spacing: -0.055em;
+  line-height: 1.2;
+}
+
+.benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 54px;
+}
+
+.benefit-card {
+  min-height: 148px;
+  padding: 4px 32px 0;
+  border-left: 1px solid #2b2d2a;
+}
+
+.benefit-card:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.benefit-card__icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: var(--white);
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.benefit-card h3 {
+  margin: 17px 0 8px;
+  font-size: 15px;
+}
+
+.benefit-card p {
+  max-width: 190px;
+  margin: 0;
+  color: #8f948c;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.attendance {
+  overflow: hidden;
+  padding: 96px 0 0;
+}
+
+.attendance__grid {
+  display: grid;
+  grid-template-columns: 0.72fr 1.28fr;
+  align-items: start;
+  gap: 70px;
+}
+
+.section-copy {
+  padding-top: 24px;
+}
+
+.section-copy .section-label {
+  color: var(--lime-dark);
+}
+
+.section-copy > p {
+  margin: 25px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.check-list {
+  display: grid;
+  gap: 12px;
+  margin: 27px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 720;
+}
+
+.check-list li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.check-mark {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 10px;
+}
+
+.dashboard {
+  min-width: 660px;
+  overflow: hidden;
+  border: 7px solid #171916;
+  border-bottom: 0;
+  border-radius: 24px 24px 0 0;
+  background: #fbfcfa;
+  box-shadow: 0 28px 70px rgba(20, 26, 15, 0.13);
+}
+
+.dashboard__top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 46px;
+  padding: 0 20px;
+  border-bottom: 1px solid #e6e9e3;
+  color: #8d9289;
+  font-size: 9px;
+}
+
+.dashboard__user {
+  justify-self: end;
+}
+
+.dashboard__layout {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  min-height: 360px;
+}
+
+.dashboard__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 24px 13px;
+  border-right: 1px solid #e6e9e3;
+  color: #8d9289;
+  font-size: 9px;
+}
+
+.dashboard__sidebar b {
+  margin: 0 8px 10px;
+  color: #20231f;
+}
+
+.dashboard__sidebar span {
+  padding: 9px 10px;
+  border-radius: 6px;
+}
+
+.dashboard__sidebar .active {
+  background: #eff1ed;
+  color: #171a15;
+  font-weight: 760;
+}
+
+.dashboard__body {
+  padding: 26px;
+}
+
+.dashboard__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard__heading small {
+  color: #a0a69b;
+  font-size: 8px;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+}
+
+.dashboard__heading h3 {
+  margin: 3px 0 0;
+  font-size: 17px;
+}
+
+.dashboard__heading button {
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.dashboard__filters {
+  display: flex;
+  gap: 16px;
+  margin: 22px 0 12px;
+  padding: 11px 13px;
+  border-radius: 8px;
+  background: #f0f2ee;
+  color: #777c73;
+  font-size: 9px;
+}
+
+.dashboard__filters b {
+  color: #20231f;
+}
+
+.student-table {
+  overflow: hidden;
+  border: 1px solid #e7eae4;
+  border-radius: 9px;
+}
+
+.student-table__head,
+.student-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1.3fr 0.8fr 0.65fr;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 15px;
+  border-bottom: 1px solid #edf0eb;
+  font-size: 9px;
+}
+
+.student-table__head {
+  min-height: 34px;
+  background: #fafbfa;
+  color: #9ca097;
+}
+
+.student-row:last-child {
+  border-bottom: 0;
+}
+
+.student-row > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 720;
+}
+
+.student-dot {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #d8f58e;
+}
+
+.student-dot--2 {
+  background: #dfd7ff;
+}
+
+.student-dot--3 {
+  background: #ffdfb9;
+}
+
+.student-dot--4 {
+  background: #cbeff1;
+}
+
+.student-dot--5 {
+  background: #ffd1d7;
+}
+
+.status-pill {
+  justify-self: start;
+  padding: 5px 8px;
+  border-radius: 99px;
+  background: var(--lime);
+  font-style: normal;
+  font-weight: 760;
+}
+
+.status-pill--지각 {
+  background: #fff0cb;
+  color: #896000;
+}
+
+.status-pill--결석 {
+  background: #ffe2e4;
+  color: #9b373f;
+}
+
 @media (max-width: 1100px) {
   .hero__grid {
     grid-template-columns: minmax(0, 0.85fr) minmax(470px, 1.15fr);
@@ -660,6 +961,30 @@ summary {
     margin: -10px 0 -20px;
     transform: scale(0.94);
     transform-origin: center;
+  }
+
+  .benefit-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 36px;
+  }
+
+  .benefit-card:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .attendance {
+    padding-top: 78px;
+  }
+
+  .attendance__grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .dashboard {
+    min-width: 0;
+    width: 100%;
   }
 }
 
@@ -713,6 +1038,44 @@ summary {
 
   .scroll-cue {
     display: none;
+  }
+
+  .benefits {
+    padding: 58px 0;
+  }
+
+  .benefit-grid {
+    grid-template-columns: 1fr;
+    margin-top: 38px;
+  }
+
+  .benefit-card,
+  .benefit-card:first-child,
+  .benefit-card:nth-child(3) {
+    min-height: 0;
+    padding: 0 0 27px;
+    border: 0;
+    border-bottom: 1px solid #2b2d2a;
+  }
+
+  .benefit-card:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .attendance {
+    padding-top: 62px;
+  }
+
+  .section-copy {
+    padding-top: 0;
+  }
+
+  .dashboard {
+    width: 660px;
+    transform: scale(0.58);
+    transform-origin: left top;
+    margin-bottom: -160px;
   }
 }
 
