@@ -105,6 +105,13 @@ test("marks the class-flow progress with a black moving dot", () => {
   );
 });
 
+test("renders the class-flow content title with a bold weight", () => {
+  assert.match(
+    css,
+    /\.flow-copy h3\s*{[^}]*font-weight:\s*700;/s,
+  );
+});
+
 test("matches the desktop Figma class-flow artboard geometry", () => {
   assert.match(
     css,
