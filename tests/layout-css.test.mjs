@@ -23,6 +23,14 @@ test("keeps the desktop hero artwork fully contained", () => {
 test("prevents the hero copy and artwork from overflowing narrow screens", () => {
   assert.match(css, /\.hero__copy,\s*\.hero-devices[^}]*min-width:\s*0;/s);
   assert.match(css, /\.hero-devices__image[^}]*max-width:\s*100%;/s);
+  assert.match(
+    css,
+    /@media\s*\(max-width:\s*560px\)[\s\S]*\.hero h1\s*{[^}]*font-size:\s*34px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(max-width:\s*560px\)[\s\S]*\.hero-devices\s*{[^}]*width:\s*92%;/,
+  );
 });
 
 test("crops the desktop attendance artwork and reveals it on mobile", () => {
@@ -76,4 +84,89 @@ test("matches the desktop Figma class-flow artboard geometry", () => {
     css,
     /@media\s*\(min-width:\s*1328px\)[\s\S]*\.flow-check-card\s*{[^}]*width:\s*229px;[^}]*height:\s*207px;[^}]*padding:\s*32px;/,
   );
+});
+
+test("matches the full desktop Figma section rhythm", () => {
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.hero\s*{[^}]*height:\s*655px;[^}]*min-height:\s*655px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.benefits\s*{[^}]*height:\s*412px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.attendance\s*{[^}]*height:\s*551px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.feature-showcase\s*{[^}]*height:\s*280px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.testimonials\s*{[^}]*height:\s*530px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.pricing\s*{[^}]*height:\s*702px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.final-cta\s*{[^}]*height:\s*417px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.site-footer\s*{[^}]*height:\s*322px;/,
+  );
+});
+
+test("positions the desktop hero and attendance artwork from the Figma frame", () => {
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.hero__copy\s*{[^}]*top:\s*132px;[^}]*width:\s*578px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.hero-devices\s*{[^}]*top:\s*-3px;[^}]*left:\s*533px;[^}]*width:\s*916px;[^}]*height:\s*638px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.hero-devices__image\s*{[^}]*width:\s*827px;[^}]*height:\s*638px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.attendance-artwork\s*{[^}]*top:\s*146px;[^}]*left:\s*385px;[^}]*width:\s*855px;[^}]*height:\s*498px;/,
+  );
+});
+
+test("matches the desktop testimonial and pricing card geometry", () => {
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.testimonial-card:nth-child\(2\)\s*{[^}]*left:\s*703px;[^}]*top:\s*79px;[^}]*width:\s*305px;[^}]*height:\s*382px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.pricing-cards\s*{[^}]*top:\s*47px;[^}]*left:\s*532px;[^}]*width:\s*735px;[^}]*height:\s*596px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.price-card--featured\s*{[^}]*width:\s*361px;[^}]*height:\s*596px;/,
+  );
+});
+
+test("preserves the exact desktop Figma title line breaks", () => {
+  for (const selector of [
+    String.raw`\.hero h1`,
+    String.raw`\.attendance h2`,
+    String.raw`\.feature-showcase h2`,
+    String.raw`\.testimonials h2`,
+  ]) {
+    assert.match(
+      css,
+      new RegExp(
+        String.raw`@media\s*\(min-width:\s*1328px\)[\s\S]*${selector}\s*\{[^}]*white-space:\s*nowrap;`,
+      ),
+    );
+  }
 });

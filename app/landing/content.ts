@@ -23,6 +23,7 @@ export type PricingPlan = {
   description: string;
   price: string;
   unit: string;
+  details?: [string, string];
   features: string[];
   featured?: boolean;
   badge?: string;
@@ -39,22 +40,22 @@ export const benefits: Benefit[] = [
   {
     icon: "/img/graduationcap.png",
     title: "현장 중심 설계",
-    description: "학원 운영 경험을 누구보다 잘 아는 사람들이 직접 설계했습니다.",
+    description: "학원 운영 흐름을 누구보다 잘 아는 사람들이 직접 설계했습니다.",
   },
   {
     icon: "/img/chart.png",
-    title: "데이터 성장",
+    title: "데이터로 성장",
     description: "축적된 데이터를 통해 학생의 성장을 예측하고 관리합니다.",
   },
   {
     icon: "/img/comment.png",
     title: "소통의 연결",
-    description: "학생과 학부모, 학원이 소통하도록 가까이 돕습니다.",
+    description: "학원과 학부모, 학생의 소통이 더 가까워집니다.",
   },
   {
     icon: "/img/shield.png",
-    title: "안전한 보안",
-    description: "중요한 데이터는 안전하게 암호화되어 보호됩니다.",
+    title: "안정적인 보안",
+    description: "중요한 데이터는 안전하게 암호화하여 보호됩니다.",
   },
 ];
 
@@ -161,11 +162,15 @@ export const pricingPlans: PricingPlan[] = [
     unit: "원/월",
     featured: true,
     badge: "가장 인기 있는 플랜",
+    details: [
+      "학습 관리, 성과 분석, 자동화 기능까지",
+      "모든 핵심 기능을 제공하는 프리미엄 플랜입니다.",
+    ],
     features: [
       "Starter의 모든 기능 포함",
-      "AI 학습 분석 통계 리포트",
-      "학부모 커뮤니케이션 자동 발송",
-      "학원 수 무제한",
+      "AI 학습 분석·통계 리포트",
+      "학부모 카카오톡 자동 발송",
+      "학생 수 무제한",
     ],
   },
   {
@@ -173,7 +178,7 @@ export const pricingPlans: PricingPlan[] = [
     description: "소규모 학원을 위한 필수 플랜",
     price: "99,000",
     unit: "원/월",
-    features: ["태블릿 출결 체크", "기본 학생 관리", "학부모 공지", "월간 리포트"],
+    features: ["태블릿 채점 (책·시험지)", "기본 성적 관리", "학생 관리 (30명까지)", "월간 학습 리포트"],
   },
   {
     name: "Enterprise",
@@ -183,8 +188,8 @@ export const pricingPlans: PricingPlan[] = [
     features: [
       "Premium의 모든 기능 포함",
       "다지점 통합 관리",
-      "전용 시스템 연동",
-      "운영·마케팅 지원",
+      "기존 시스템 데이터 연동",
+      "전담 매니저 지원",
     ],
   },
 ];

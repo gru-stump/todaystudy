@@ -6,10 +6,10 @@ export function HeroDevices() {
       <Image
         alt="오늘의스터디 태블릿과 모바일 학습 관리 화면"
         className="hero-devices__image"
-        height={1103}
-        src="/img/hero_mockup_complete.png"
+        height={638}
+        src="/img/hero_mockup.png"
         unoptimized
-        width={1426}
+        width={827}
       />
     </div>
   );

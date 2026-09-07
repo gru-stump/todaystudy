@@ -43,7 +43,7 @@ export function BenefitsSection() {
   return (
     <section className="dark-section benefits" id="about" aria-labelledby="benefits-title">
       <div className="container">
-        <SectionLabel>WHY TODAYSTUDY</SectionLabel>
+        <SectionLabel>WHY TODAYSTUDY?</SectionLabel>
         <h2 id="benefits-title">학원을 가장 잘 아는<br />사람들이 만들었습니다</h2>
         <div className="benefit-grid">
           {benefits.map((benefit) => (
@@ -67,9 +67,9 @@ export function BenefitsSection() {
 }
 
 const attendanceChecks = [
-  "QR체크인 출석 지원",
-  "지각 · 조퇴 · 결석 자동 구분",
-  "학부모 실시간 알림 발송",
+  "QR/태블릿 출석 지원",
+  "지각ㆍ조퇴ㆍ결석ㆍ자동 구분",
+  "학부모 실시간 알림톡 발송",
   "출석 통계 및 리포트 제공",
 ];
 
@@ -105,12 +105,12 @@ export function FeatureShowcaseSection() {
         <div className="management-stage">
           <div className="feature-callout feature-callout--left">
             <span aria-hidden="true">✦</span>
-            <div><b>통합 학생 관리</b><p>필요한 정보를<br />한눈에 확인</p></div>
+            <div><b>한눈에 확인</b><p>필요한 정보와 오늘의 업무를<br />한 화면에서</p></div>
           </div>
           <ManagementDashboard />
           <div className="feature-callout feature-callout--right">
             <span aria-hidden="true">ϟ</span>
-            <div><b>빠른 알림</b><p>학부모와 학생에게<br />즉시 전달</p></div>
+            <div><b>빠르게 처리</b><p>반복되는 업무는 줄이고,<br />클릭은 최소한으로</p></div>
           </div>
         </div>
       </div>
@@ -167,6 +167,9 @@ function PriceCard({ index }: { index: number }) {
       <div className="price-card__price">
         <b>{plan.price}</b><span>{plan.unit}</span>
       </div>
+      {plan.details ? (
+        <p className="price-card__details">{plan.details[0]}<br />{plan.details[1]}</p>
+      ) : null}
       <ul>
         {plan.features.map((feature) => (
           <li key={feature}><CheckMark />{feature}</li>
@@ -185,12 +188,12 @@ export function PricingSection() {
       <div className="container pricing__grid">
         <div className="pricing__copy">
           <SectionLabel>PRICING</SectionLabel>
-          <h2 id="pricing-title">공부 관리,<br />이제는 <em>시스템</em>의 차이</h2>
-          <p>오늘의스터디는 학습 관리부터 성과 분석까지<br />학원 운영에 필요한 모든 기능을 제공합니다.</p>
+          <h2 id="pricing-title">공부 관리,<br />이제는<br /><em>시스템</em>의 차이</h2>
+          <p>오늘의스터디는 학습 관리부터 성과 분석까지<br />학원 운영에 필요한 모든 기능을 제공합니다.<br />규모와 목적에 맞는 플랜을 선택해보세요.</p>
           <div className="pricing-points">
-            <span>▣ 14일 무료 체험</span>
-            <span>⊖ 도입 상담 가능</span>
-            <span>◇ 안심하고 사용</span>
+            <div className="pricing-point"><span aria-hidden="true">▣</span><div><b>14일 무료 체험</b><small>모든 플랜 동일 제공</small></div></div>
+            <div className="pricing-point"><span aria-hidden="true">⊖</span><div><b>도입 상담 가능</b><small>전담 컨설턴트 1:1상담</small></div></div>
+            <div className="pricing-point"><span aria-hidden="true">◇</span><div><b>안심하고 사용</b><small>데이터 보안ㆍ안정성 보장</small></div></div>
           </div>
         </div>
         <div className="pricing-cards">
@@ -232,12 +235,13 @@ export function Footer() {
         <div>
           <BrandMark />
           <p className="footer-intro">학원 운영의 모든 것, 하나의 플랫폼으로<br />학생의 오늘을 기록하고, 학원의 내일을 만듭니다.</p>
-          <p className="footer-meta">주식회사 프라이머스&nbsp;&nbsp;|&nbsp;&nbsp;대표 김도윤<br />사업자등록번호 485-86-03027</p>
+          <p className="footer-meta">주식회사 프라이머스&nbsp;&nbsp;|&nbsp;&nbsp;대표 김호균<br />사업자등록번호 485-86-03027</p>
           <small>© 2026 Primers. All rights reserved.</small>
         </div>
         <address>
           <b>문의하기</b>
           <a href="tel:0519398154">☎&nbsp; 051.939.8154</a>
+          <small>평일 09:00 ~ 18:00&nbsp; · &nbsp;주말/공휴일 휴무</small>
           <a href="mailto:sales@primers.co.kr">✉&nbsp; sales@primers.co.kr</a>
         </address>
       </div>

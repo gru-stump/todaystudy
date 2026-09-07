@@ -24,7 +24,7 @@ body {
   overflow-x: clip;
   background: var(--white);
   color: var(--ink);
-  font-family: var(--font-geist-sans), "Pretendard", "Noto Sans KR", Arial, sans-serif;
+  font-family: "Pretendard", var(--font-geist-sans), "Noto Sans KR", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -2158,8 +2158,12 @@ summary {
     width: 116px;
   }
 
+  .hero h1 {
+    font-size: 34px;
+  }
+
   .hero-devices {
-    width: 100%;
+    width: 92%;
     margin: 8px 0 0;
     transform: none;
   }
@@ -2868,5 +2872,617 @@ summary {
   .flow-next--primary {
     border-color: var(--lime);
     background: var(--lime);
+  }
+
+  /* 1440px Figma landing artboard */
+  .hero {
+    height: 655px;
+    min-height: 655px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .hero__grid {
+    position: relative;
+    display: block;
+    height: 655px;
+  }
+
+  .hero__copy {
+    position: absolute;
+    top: 132px;
+    left: 0;
+    width: 578px;
+    padding: 0;
+  }
+
+  .hero__copy .eyebrow {
+    margin-bottom: 9px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.5;
+  }
+
+  .hero h1 {
+    width: 111.12%;
+    font-size: 64px;
+    letter-spacing: -0.065em;
+    line-height: 1.3;
+    transform: scaleX(0.9);
+    transform-origin: left center;
+    white-space: nowrap;
+  }
+
+  .hero h1 em {
+    color: var(--lime);
+  }
+
+  .hero__description {
+    margin-top: 9px;
+    font-size: 20px;
+    letter-spacing: -0.03em;
+    line-height: 1.5;
+  }
+
+  .hero .button-row {
+    gap: 16px;
+    margin-top: 46px;
+  }
+
+  .hero .cta {
+    width: 173px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    border-radius: 12px;
+    font-size: 16px;
+  }
+
+  .hero-devices {
+    position: absolute;
+    top: -3px;
+    left: 533px;
+    display: block;
+    width: 916px;
+    height: 638px;
+    overflow: visible;
+  }
+
+  .hero-devices__image {
+    width: 827px;
+    height: 638px;
+    max-width: none;
+    object-fit: contain;
+    background: transparent;
+  }
+
+  .scroll-cue {
+    bottom: 25px;
+  }
+
+  .benefits {
+    height: 412px;
+    padding: 68px 0;
+    overflow: hidden;
+  }
+
+  .benefits > .container {
+    height: 276px;
+  }
+
+  .benefits .section-label {
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .benefits h2 {
+    font-size: 32px;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+  }
+
+  .benefit-grid {
+    grid-template-columns: repeat(4, 240px);
+    justify-content: space-between;
+    height: 136px;
+    margin-top: 30px;
+  }
+
+  .benefit-card {
+    position: relative;
+    width: 240px;
+    min-height: 127px;
+    padding: 0 20px;
+    border: 0;
+  }
+
+  .benefit-card:first-child {
+    padding-left: 20px;
+  }
+
+  .benefit-card:not(:first-child)::before {
+    position: absolute;
+    top: 0;
+    left: -53px;
+    width: 1px;
+    height: 136px;
+    background: #30312e;
+    content: "";
+  }
+
+  .benefit-card__icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .benefit-card h3 {
+    margin: 8px 0 6px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .benefit-card p {
+    max-width: 200px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .attendance {
+    height: 551px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .attendance__grid {
+    position: relative;
+    display: block;
+    height: 551px;
+  }
+
+  .attendance .section-copy {
+    position: absolute;
+    top: 120px;
+    left: 0;
+    width: 290px;
+    padding: 0;
+  }
+
+  .attendance .section-copy .section-label {
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .attendance h2 {
+    font-size: 32px;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .attendance .section-copy > p {
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  .attendance .check-list {
+    gap: 7px;
+    margin-top: 18px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .attendance .check-mark {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+  }
+
+  .attendance-artwork {
+    position: absolute;
+    top: 146px;
+    left: 385px;
+    width: 855px;
+    height: 498px;
+    max-height: none;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 0;
+    filter: none;
+  }
+
+  .attendance-artwork img {
+    width: 855px;
+    height: auto;
+    max-width: none;
+  }
+
+  .feature-showcase {
+    height: 280px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .feature-showcase__inner {
+    position: relative;
+    height: 280px;
+  }
+
+  .feature-showcase__copy {
+    position: absolute;
+    top: 77px;
+    left: 0;
+    width: 326px;
+  }
+
+  .feature-showcase__copy .section-label {
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .feature-showcase h2 {
+    margin: 0;
+    font-size: 32px;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .feature-showcase__copy p {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  .management-stage {
+    position: absolute;
+    top: 44px;
+    left: 503px;
+    width: 681px;
+    margin: 0;
+    transform: none;
+  }
+
+  .management-dashboard--artwork,
+  .management-dashboard--artwork img {
+    width: 681px;
+    height: 236px;
+    max-width: none;
+  }
+
+  .feature-callout {
+    min-width: 0;
+    width: 174px;
+    height: 79px;
+    gap: 8px;
+    padding: 13px 12px;
+  }
+
+  .feature-callout b,
+  .feature-callout p {
+    font-size: 12px;
+  }
+
+  .feature-callout--left {
+    top: 25px;
+    left: -136px;
+  }
+
+  .feature-callout--right {
+    top: 169px;
+    right: auto;
+    left: -503px;
+  }
+
+  .testimonials {
+    height: 530px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .testimonials__grid {
+    position: relative;
+    display: block;
+    height: 530px;
+  }
+
+  .testimonials__copy {
+    position: absolute;
+    top: 137px;
+    left: 0;
+    width: 388px;
+  }
+
+  .testimonials__copy > .section-label {
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .testimonials h2 {
+    font-size: 32px;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .testimonials__copy > p {
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  .metrics {
+    width: 388px;
+    gap: 24px;
+    margin-top: 26px;
+  }
+
+  .metric b {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .metric > span {
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  .testimonial-grid {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  .testimonial-card {
+    position: absolute;
+  }
+
+  .testimonial-card:nth-child(1) {
+    top: 103px;
+    left: 423px;
+    width: 268px;
+    height: 334px;
+  }
+
+  .testimonial-card:nth-child(2) {
+    left: 703px;
+    top: 79px;
+    width: 305px;
+    height: 382px;
+    transform: none;
+  }
+
+  .testimonial-card:nth-child(3) {
+    top: 102px;
+    left: 1020px;
+    width: 268px;
+    height: 335px;
+  }
+
+  .testimonial-card__portrait {
+    width: 100%;
+    height: 100%;
+    border-radius: 19px;
+  }
+
+  .testimonial-card__quote {
+    position: absolute;
+    margin: 0;
+  }
+
+  .testimonial-card:nth-child(1) .testimonial-card__quote {
+    top: 211px;
+    left: 11px;
+    width: 246px;
+    min-height: 113px;
+  }
+
+  .testimonial-card:nth-child(2) .testimonial-card__quote {
+    top: 233px;
+    left: 10px;
+    width: 285px;
+    min-height: 139px;
+  }
+
+  .testimonial-card:nth-child(3) .testimonial-card__quote {
+    top: 213px;
+    left: 11px;
+    width: 246px;
+    min-height: 113px;
+  }
+
+  .pricing {
+    height: 702px;
+    padding: 0;
+  }
+
+  .pricing__grid {
+    position: relative;
+    display: block;
+    height: 702px;
+  }
+
+  .pricing__copy {
+    position: absolute;
+    top: 155px;
+    left: 0;
+    width: 465px;
+  }
+
+  .pricing h2 {
+    font-size: 48px;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+  }
+
+  .pricing__copy > p {
+    margin-top: 24px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .pricing-cards {
+    position: absolute;
+    top: 47px;
+    left: 532px;
+    display: block;
+    width: 735px;
+    height: 596px;
+  }
+
+  .price-card--featured {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 361px;
+    height: 596px;
+    min-height: 0;
+    padding: 33px 30px 26px;
+    border-radius: 24px;
+  }
+
+  .price-card--featured h3 {
+    font-size: 28px;
+  }
+
+  .price-card--featured > p:not(.price-card__details) {
+    font-size: 16px;
+  }
+
+  .price-card--featured .price-card__price b {
+    font-size: 40px;
+  }
+
+  .price-card--featured .price-card__price span {
+    font-size: 20px;
+  }
+
+  .price-card__details {
+    margin: 24px 0 0;
+    padding-top: 20px;
+    border-top: 1px solid #e7eae4;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .price-card--featured ul {
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 0;
+    border-top: 0;
+    font-size: 14px;
+  }
+
+  .price-card--featured li .check-mark {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+  }
+
+  .pricing-cards__side {
+    position: absolute;
+    top: 0;
+    left: 374px;
+    display: block;
+    width: 361px;
+    height: 596px;
+  }
+
+  .pricing-cards__side .price-card {
+    position: absolute;
+    left: 0;
+    width: 361px;
+    height: 291px;
+    min-height: 0;
+    padding: 26px;
+  }
+
+  .pricing-cards__side .price-card:first-child {
+    top: 0;
+  }
+
+  .pricing-cards__side .price-card:last-child {
+    top: 303px;
+    height: 293px;
+  }
+
+  .pricing-points {
+    flex-wrap: nowrap;
+    gap: 18px;
+    margin-top: 30px;
+  }
+
+  .pricing-point {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pricing-point > span {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    color: var(--lime-dark);
+    font-size: 20px;
+  }
+
+  .pricing-point div {
+    display: grid;
+    gap: 4px;
+  }
+
+  .pricing-point b {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .pricing-point small {
+    color: #777972;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .brand-mark img {
+    width: 168px;
+    height: 26px;
+  }
+
+  .final-cta {
+    height: 417px;
+    padding: 88px 0 0;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .final-cta h2 {
+    font-size: 48px;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+  }
+
+  .site-footer {
+    height: 322px;
+    padding: 49px 0 55px;
+  }
+
+  .site-footer__grid {
+    height: 218px;
+    grid-template-columns: 1fr 271px;
+    gap: 60px;
+  }
+
+  .site-footer address small {
+    color: #a1a59d;
+    font-size: 9px;
   }
 }

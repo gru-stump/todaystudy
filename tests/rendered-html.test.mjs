@@ -47,12 +47,12 @@ test("renders the benefits and attendance product story", async () => {
   const html = await (await render()).text();
   assert.match(html, /학원을 가장 잘 아는/);
   assert.match(html, /현장 중심 설계/);
-  assert.match(html, /데이터 성장/);
+  assert.match(html, /데이터로 성장/);
   assert.match(html, /소통의 연결/);
-  assert.match(html, /안전한 보안/);
+  assert.match(html, /안정적인 보안/);
   assert.match(html, /태블릿으로 끝내는/);
   assert.match(html, /출석 체크와 자동 알림/);
-  assert.match(html, /QR체크인 출석 지원/);
+  assert.match(html, /QR\/태블릿 출석 지원/);
 });
 
 test("renders all five academy workflow steps and management feature", async () => {
@@ -61,8 +61,8 @@ test("renders all five academy workflow steps and management feature", async () 
     assert.match(html, new RegExp(label));
   }
   assert.match(html, /직관적인 화면 강력한 기능/);
-  assert.match(html, /통합 학생 관리/);
-  assert.match(html, /빠른 알림/);
+  assert.match(html, /한눈에 확인/);
+  assert.match(html, /빠르게 처리/);
 });
 
 test("renders proof, pricing, final CTA, and contact information", async () => {
@@ -107,7 +107,7 @@ test("renders the supplied TodayStudy artwork in every visual section", async ()
 
   for (const asset of [
     "todaystudy_logo.svg",
-    "hero_mockup_complete.png",
+    "hero_mockup.png",
     "graduationcap.png",
     "chart.png",
     "comment.png",
@@ -173,4 +173,24 @@ test("renders the Figma workflow workspace and state-specific copy", async () =>
   }
 
   assert.match(html, /처음 단계 보기/);
+});
+
+test("renders the exact non-flow Figma section copy", async () => {
+  const html = await (await render()).text();
+
+  for (const sentence of [
+    "데이터로 성장",
+    "안정적인 보안",
+    "QR/태블릿 출석 지원",
+    "한눈에 확인",
+    "빠르게 처리",
+    "AI 학습 분석·통계 리포트",
+    "학부모 카카오톡 자동 발송",
+    "평일 09:00 ~ 18:00",
+    "규모와 목적에 맞는 플랜을 선택해보세요.",
+    "모든 플랜 동일 제공",
+    "모든 핵심 기능을 제공하는 프리미엄 플랜입니다.",
+  ]) {
+    assert.match(html, new RegExp(sentence.replace(/[.*+?^\x24{}()|[\]\\]/g, "\\$&")));
+  }
 });
