@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { navItems } from "./content";
 import { BrandMark, CtaLink } from "./ui";
 
@@ -17,9 +18,9 @@ export function Header() {
   return (
     <header className="site-header">
       <div className="container site-header__inner">
-        <a className="brand-link" href="#" aria-label="오늘의스터디 홈">
+        <Link className="brand-link" href="/" aria-label="오늘의스터디 홈">
           <BrandMark />
-        </a>
+        </Link>
         <nav className="desktop-nav" aria-label="주요 메뉴">
           <NavigationLinks />
         </nav>
