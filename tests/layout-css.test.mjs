@@ -170,3 +170,60 @@ test("preserves the exact desktop Figma title line breaks", () => {
     );
   }
 });
+
+test("positions both desktop smart-and-simple callouts from the Figma frame", () => {
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.feature-callout--overview\s*{[^}]*top:\s*69px;[^}]*left:\s*367px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.feature-callout--action\s*{[^}]*top:\s*213px;[^}]*left:\s*0;/,
+  );
+  assert.doesNotMatch(css, /\.feature-callout--action\s*{[^}]*left:\s*-503px;/s);
+});
+
+test("matches the Figma testimonial typography", () => {
+  assert.match(css, /\.testimonial-card__quote-icon\s*{[^}]*font-size:\s*20px;/s);
+  assert.match(
+    css,
+    /\.testimonial-card__quote-text\s*{[^}]*font-weight:\s*500;[^}]*line-height:\s*1\.5;/s,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.testimonial-card:nth-child\(1\)\s+\.testimonial-card__quote-text,[\s\S]*\.testimonial-card:nth-child\(3\)\s+\.testimonial-card__quote-text\s*{[^}]*font-size:\s*12px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.testimonial-card:nth-child\(2\)\s+\.testimonial-card__quote-text\s*{[^}]*font-size:\s*14px;/,
+  );
+});
+
+test("uses the exact Figma pricing title weights", () => {
+  assert.match(
+    css,
+    /\.price-card h3\s*{[^}]*font-family:\s*"Pretendard Variable"[^;]*;[^}]*font-weight:\s*700;/s,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.price-card--featured h3\s*{[^}]*font-size:\s*28px;[^}]*letter-spacing:\s*-0\.84px;/,
+  );
+  assert.match(
+    css,
+    /@media\s*\(min-width:\s*1328px\)[\s\S]*\.pricing-cards__side \.price-card h3\s*{[^}]*font-size:\s*20px;[^}]*letter-spacing:\s*-0\.6px;/,
+  );
+});
+
+test("matches the Figma footer typography and contact grouping", () => {
+  assert.match(css, /\.footer-content\s*{[^}]*width:\s*293px;[^}]*gap:\s*24px;/s);
+  assert.match(
+    css,
+    /\.footer-intro\s*{[^}]*font-size:\s*16px;[^}]*font-weight:\s*600;[^}]*line-height:\s*1\.5;/s,
+  );
+  assert.match(
+    css,
+    /\.footer-contact\s*{[^}]*min-height:\s*150px;[^}]*padding-left:\s*32px;[^}]*border-left:\s*1px solid/s,
+  );
+  assert.match(css, /\.footer-contact__row img\s*{[^}]*width:\s*24px;[^}]*height:\s*24px;/s);
+  assert.match(css, /\.footer-contact__hours\s*{[^}]*font-size:\s*12px;/s);
+});

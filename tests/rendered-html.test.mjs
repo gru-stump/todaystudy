@@ -194,3 +194,24 @@ test("renders the exact non-flow Figma section copy", async () => {
     assert.match(html, new RegExp(sentence.replace(/[.*+?^\x24{}()|[\]\\]/g, "\\$&")));
   }
 });
+
+test("renders the exact Figma testimonial copy and contact assets", async () => {
+  const html = await (await render()).text();
+
+  for (const sentence of [
+    "출결과 리포트 업무가 줄어",
+    "수업에 더 집중",
+    "운영 현황과 학습 데이터가",
+    "한눈에 보여",
+    "아이의 학습 변화가",
+    "눈에 보여",
+    "안심되서 좋습니다.",
+  ]) {
+    assert.match(html, new RegExp(sentence));
+  }
+
+  assert.match(html, /\/img\/footer-phone\.svg/);
+  assert.match(html, /\/img\/footer-email\.svg/);
+  assert.match(html, /평일 09:00 ~ 18:00/);
+  assert.match(html, /주말\/공휴일 휴무/);
+});

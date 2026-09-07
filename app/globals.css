@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
 
 :root {
   --lime: #a8eb00;
@@ -24,7 +25,7 @@ body {
   overflow-x: clip;
   background: var(--white);
   color: var(--ink);
-  font-family: "Pretendard", var(--font-geist-sans), "Noto Sans KR", Arial, sans-serif;
+  font-family: "Pretendard Variable", "Pretendard", var(--font-geist-sans), "Noto Sans KR", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -1153,6 +1154,10 @@ summary {
   color: var(--white);
 }
 
+.feature-showcase__inner {
+  position: relative;
+}
+
 .feature-showcase__copy p {
   margin: 20px 0 0;
   color: #8e938b;
@@ -1335,14 +1340,14 @@ summary {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
 }
 
-.feature-callout--left {
+.feature-callout--overview {
   top: 70px;
-  left: -88px;
+  left: 37%;
 }
 
-.feature-callout--right {
+.feature-callout--action {
   top: 135px;
-  right: -70px;
+  left: 0;
 }
 
 .feature-callout > span {
@@ -1470,33 +1475,39 @@ summary {
   text-align: center;
 }
 
-.testimonial-card__quote > span {
+.testimonial-card__quote-icon {
   position: absolute;
   top: 6px;
   left: 50%;
   color: var(--lime-dark);
   font-family: Georgia, serif;
-  font-size: 28px;
+  font-size: 20px;
   transform: translateX(-50%);
 }
 
-.testimonial-card__quote p {
+.testimonial-card__quote-text {
   margin: 12px 0 11px;
   color: #51564d;
-  font-size: 10px;
-  line-height: 1.65;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
-.testimonial-card__quote b {
+.testimonial-card__quote-text > span {
   display: block;
-  font-size: 10px;
 }
 
-.testimonial-card__quote small {
-  display: block;
-  margin-top: 3px;
-  color: #999e95;
-  font-size: 8px;
+.testimonial-card__quote-text em {
+  color: var(--lime-dark);
+  font-style: normal;
+}
+
+.testimonial-card__author {
+  margin: 0;
+  color: #51564d;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .pricing {
@@ -1580,7 +1591,10 @@ summary {
 
 .price-card h3 {
   margin: 0;
+  font-family: "Pretendard Variable", "Pretendard", sans-serif;
   font-size: 25px;
+  font-weight: 700;
+  line-height: 1.3;
   letter-spacing: -0.04em;
 }
 
@@ -1704,37 +1718,86 @@ summary {
   gap: 60px;
 }
 
+.footer-content {
+  display: flex;
+  width: 293px;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .footer-intro {
-  margin: 24px 0 18px;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.75;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.48px;
+  line-height: 1.5;
 }
 
 .footer-meta,
 .site-footer small {
   color: #858a81;
-  font-size: 10px;
-  line-height: 1.8;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.48px;
+  line-height: 1.5;
 }
 
-.site-footer address {
-  display: grid;
-  align-content: center;
-  gap: 13px;
-  padding-left: 42px;
+.footer-meta {
+  margin: 0;
+}
+
+.footer-content > small {
+  color: #a3a59e;
+}
+
+.footer-contact {
+  display: flex;
+  min-height: 150px;
+  align-self: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding-left: 32px;
   border-left: 1px solid var(--line);
-  font-size: 11px;
+  font-size: 16px;
+  font-weight: 400;
   font-style: normal;
+  letter-spacing: -0.48px;
+  line-height: 1.5;
 }
 
-.site-footer address b {
-  margin-bottom: 7px;
-  color: #565b52;
+.footer-contact > b {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
 }
 
-.site-footer address a {
-  color: #858a81;
+.footer-contact a {
+  color: var(--ink);
+}
+
+.footer-contact__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.footer-contact__row img {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+}
+
+.footer-contact__row > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-contact__hours {
+  color: #a3a59e;
+  font-size: 12px;
+  letter-spacing: -0.36px;
 }
 
 @media (max-width: 1100px) {
@@ -1830,12 +1893,12 @@ summary {
     transform: none;
   }
 
-  .feature-callout--left {
+  .feature-callout--overview {
     left: -18px;
   }
 
-  .feature-callout--right {
-    right: -18px;
+  .feature-callout--action {
+    left: 0;
   }
 
   .testimonials__grid,
@@ -2030,7 +2093,8 @@ summary {
     gap: 35px;
   }
 
-  .site-footer address {
+  .footer-contact {
+    min-height: 0;
     padding: 28px 0 0;
     border-top: 1px solid var(--line);
     border-left: 0;
@@ -3169,15 +3233,14 @@ summary {
     font-size: 12px;
   }
 
-  .feature-callout--left {
-    top: 25px;
-    left: -136px;
+  .feature-callout--overview {
+    top: 69px;
+    left: 367px;
   }
 
-  .feature-callout--right {
-    top: 169px;
-    right: auto;
-    left: -503px;
+  .feature-callout--action {
+    top: 213px;
+    left: 0;
   }
 
   .testimonials {
@@ -3283,6 +3346,7 @@ summary {
     left: 11px;
     width: 246px;
     min-height: 113px;
+    padding: 10px 20px;
   }
 
   .testimonial-card:nth-child(2) .testimonial-card__quote {
@@ -3290,6 +3354,7 @@ summary {
     left: 10px;
     width: 285px;
     min-height: 139px;
+    padding: 20px;
   }
 
   .testimonial-card:nth-child(3) .testimonial-card__quote {
@@ -3297,6 +3362,25 @@ summary {
     left: 11px;
     width: 246px;
     min-height: 113px;
+    padding: 10px 20px;
+  }
+
+  .testimonial-card:nth-child(1) .testimonial-card__quote-text,
+  .testimonial-card:nth-child(3) .testimonial-card__quote-text {
+    font-size: 12px;
+  }
+
+  .testimonial-card:nth-child(1) .testimonial-card__author,
+  .testimonial-card:nth-child(3) .testimonial-card__author {
+    font-size: 12px;
+  }
+
+  .testimonial-card:nth-child(2) .testimonial-card__quote-text {
+    font-size: 14px;
+  }
+
+  .testimonial-card:nth-child(2) .testimonial-card__author {
+    font-size: 14px;
   }
 
   .pricing {
@@ -3351,6 +3435,7 @@ summary {
 
   .price-card--featured h3 {
     font-size: 28px;
+    letter-spacing: -0.84px;
   }
 
   .price-card--featured > p:not(.price-card__details) {
@@ -3395,6 +3480,11 @@ summary {
     display: block;
     width: 361px;
     height: 596px;
+  }
+
+  .pricing-cards__side .price-card h3 {
+    font-size: 20px;
+    letter-spacing: -0.6px;
   }
 
   .pricing-cards__side .price-card {
@@ -3481,8 +3571,8 @@ summary {
     gap: 60px;
   }
 
-  .site-footer address small {
+  .footer-contact__hours {
     color: #a1a59d;
-    font-size: 9px;
+    font-size: 12px;
   }
 }

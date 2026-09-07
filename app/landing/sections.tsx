@@ -102,16 +102,16 @@ export function FeatureShowcaseSection() {
           <h2 id="showcase-title">직관적인 화면 강력한 기능</h2>
           <p>누구나 쉽게, 그러나 강력하게 사용할 수 있도록<br />오늘의 스터디는 사용성을 최우선으로 설계했습니다.</p>
         </div>
+        <div className="feature-callout feature-callout--overview">
+          <span aria-hidden="true">✦</span>
+          <div><b>한눈에 확인</b><p>필요한 정보와 오늘의 업무를<br />한 화면에서</p></div>
+        </div>
+        <div className="feature-callout feature-callout--action">
+          <span aria-hidden="true">ϟ</span>
+          <div><b>빠르게 처리</b><p>반복되는 업무는 줄이고,<br />클릭은 최소한으로</p></div>
+        </div>
         <div className="management-stage">
-          <div className="feature-callout feature-callout--left">
-            <span aria-hidden="true">✦</span>
-            <div><b>한눈에 확인</b><p>필요한 정보와 오늘의 업무를<br />한 화면에서</p></div>
-          </div>
           <ManagementDashboard />
-          <div className="feature-callout feature-callout--right">
-            <span aria-hidden="true">ϟ</span>
-            <div><b>빠르게 처리</b><p>반복되는 업무는 줄이고,<br />클릭은 최소한으로</p></div>
-          </div>
         </div>
       </div>
     </section>
@@ -144,10 +144,15 @@ export function TestimonialsSection() {
                 width={testimonial.imageWidth}
               />
               <div className="testimonial-card__quote">
-                <span aria-hidden="true">“</span>
-                <p>{testimonial.quote}</p>
-                <b>{testimonial.name}</b>
-                <small>{testimonial.role}</small>
+                <span className="testimonial-card__quote-icon" aria-hidden="true">“</span>
+                <p className="testimonial-card__quote-text">
+                  <span>{testimonial.quoteLine1}</span>
+                  <span><em>{testimonial.quoteHighlight}</em> {testimonial.quoteTail}</span>
+                </p>
+                <p className="testimonial-card__author">
+                  {testimonial.name}
+                  {testimonial.role ? <span> | {testimonial.role}</span> : null}
+                </p>
               </div>
             </article>
           ))}
@@ -232,17 +237,25 @@ export function Footer() {
   return (
     <footer className="site-footer" id="contact">
       <div className="container site-footer__grid">
-        <div>
+        <div className="footer-content">
           <BrandMark />
           <p className="footer-intro">학원 운영의 모든 것, 하나의 플랫폼으로<br />학생의 오늘을 기록하고, 학원의 내일을 만듭니다.</p>
-          <p className="footer-meta">주식회사 프라이머스&nbsp;&nbsp;|&nbsp;&nbsp;대표 김호균<br />사업자등록번호 485-86-03027</p>
+          <p className="footer-meta">주식회사 프라이머스&nbsp;&nbsp;ㅣ&nbsp;&nbsp;대표 김호균<br />사업자등록번호 485-86-03027</p>
           <small>© 2026 Primers. All rights reserved.</small>
         </div>
-        <address>
+        <address className="footer-contact">
           <b>문의하기</b>
-          <a href="tel:0519398154">☎&nbsp; 051.939.8154</a>
-          <small>평일 09:00 ~ 18:00&nbsp; · &nbsp;주말/공휴일 휴무</small>
-          <a href="mailto:sales@primers.co.kr">✉&nbsp; sales@primers.co.kr</a>
+          <div className="footer-contact__row">
+            <Image alt="" height={24} src="/img/footer-phone.svg" unoptimized width={24} />
+            <div>
+              <a href="tel:0519398154">051.939.8154</a>
+              <small className="footer-contact__hours">평일 09:00 ~ 18:00&nbsp; · &nbsp;주말/공휴일 휴무</small>
+            </div>
+          </div>
+          <div className="footer-contact__row">
+            <Image alt="" height={24} src="/img/footer-email.svg" unoptimized width={24} />
+            <a href="mailto:sales@primers.co.kr">sales@primers.co.kr</a>
+          </div>
         </address>
       </div>
     </footer>

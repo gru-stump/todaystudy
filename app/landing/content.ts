@@ -11,9 +11,11 @@ export type FlowStep = {
   ctaLabel: string;
 };
 export type Testimonial = {
-  quote: string;
+  quoteLine1: string;
+  quoteHighlight: string;
+  quoteTail: string;
   name: string;
-  role: string;
+  role?: string;
   image: string;
   imageWidth: number;
   imageHeight: number;
@@ -129,25 +131,30 @@ export const flowSteps: FlowStep[] = [
 
 export const testimonials: Testimonial[] = [
   {
-    quote: "수업이 더 체계적으로 바뀌고 운영 시간을 줄일 수 있었어요.",
-    name: "김수연 원장",
-    role: "서울 봄빛학원 · 예시 후기",
+    quoteLine1: "출결과 리포트 업무가 줄어",
+    quoteHighlight: "수업에 더 집중",
+    quoteTail: "할 수 있어요",
+    name: "김oo 선생님",
+    role: "에xx 학원",
     image: "/img/review_01.png",
     imageWidth: 280,
     imageHeight: 346,
   },
   {
-    quote: "운영 현황과 학습 데이터를 한눈에 보며 훨씬 효율적입니다.",
-    name: "박도윤 원장",
-    role: "대전 이음학원 · 예시 후기",
+    quoteLine1: "운영 현황과 학습 데이터가",
+    quoteHighlight: "한눈에 보여",
+    quoteTail: "훨씬 효율적입니다.",
+    name: "박oo 원장님",
+    role: "미xxx 학원",
     image: "/img/review_02.png",
     imageWidth: 317,
     imageHeight: 394,
   },
   {
-    quote: "학부모와의 소통이 빨라지고 놓치는 일이 줄었습니다.",
-    name: "이하린 원장",
-    role: "부산 나래학원 · 예시 후기",
+    quoteLine1: "아이의 학습 변화가",
+    quoteHighlight: "눈에 보여",
+    quoteTail: "안심되서 좋습니다.",
+    name: "이oo 학부모님",
     image: "/img/review_03.png",
     imageWidth: 280,
     imageHeight: 347,
