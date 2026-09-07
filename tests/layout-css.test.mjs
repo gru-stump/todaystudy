@@ -98,10 +98,10 @@ test("connects the class-flow directly to the next section", () => {
   assert.match(sectionRule, /padding:\s*58px\s+0\s+0;/);
 });
 
-test("marks the active class-flow step with a black progress dot", () => {
+test("marks the class-flow progress with a black moving dot", () => {
   assert.match(
     css,
-    /\.flow-tab\[aria-selected="true"\]::after\s*{[^}]*border:\s*3px\s+solid\s+#11130f;[^}]*border-radius:\s*50%;/s,
+    /\.flow-progress__dot\s*{[^}]*border:\s*3px\s+solid\s+#11130f;[^}]*border-radius:\s*50%;[^}]*transition:\s*left\s+450ms/s,
   );
 });
 

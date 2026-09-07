@@ -54,6 +54,7 @@ function FlowScene({ index }: { index: number }) {
 export function ClassFlowSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const progress = `${(activeIndex / (flowSteps.length - 1)) * 100}%`;
 
   function selectStep(index: number) {
     setActiveIndex(index);
@@ -71,11 +72,11 @@ export function ClassFlowSection() {
     <section className="class-flow" aria-labelledby="flow-title">
       <div className="container">
         <div className="flow-intro">
-          <div className="flow-intro__copy">
+          <div className="flow-intro__copy" data-aos="fade-right">
             <SectionLabel>CRAM CLASS FLOW</SectionLabel>
             <h2 id="flow-title">학원의 하루,<br />오늘의 스터디와 함께</h2>
           </div>
-          <div className="flow-tabs" role="tablist" aria-label="학원 업무 흐름">
+          <div className="flow-tabs" data-aos="fade-left" role="tablist" aria-label="학원 업무 흐름">
             {flowSteps.map((step, index) => (
               <Fragment key={step.number}>
                 <button
@@ -97,6 +98,13 @@ export function ClassFlowSection() {
                 {index < flowSteps.length - 1 ? <i className="flow-tab-divider" aria-hidden="true" /> : null}
               </Fragment>
             ))}
+            <div
+              aria-hidden="true"
+              className="flow-progress"
+            >
+              <span className="flow-progress__line" style={{ width: progress }} />
+              <span className="flow-progress__dot" style={{ left: progress }} />
+            </div>
           </div>
         </div>
         {flowSteps.map((step, index) => (

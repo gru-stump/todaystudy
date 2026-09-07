@@ -114,6 +114,9 @@ test("desktop visual details at a 1440px viewport", async (t) => {
     deviceScaleFactor: 1,
     mobile: false,
   });
+  await cdp.call("Emulation.setEmulatedMedia", {
+    features: [{ name: "prefers-reduced-motion", value: "no-preference" }],
+  });
   await cdp.call("Page.navigate", { url: `http://127.0.0.1:${sitePort}/` });
   await waitFor(async () => {
     const result = await cdp.call("Runtime.evaluate", {
@@ -202,6 +205,92 @@ test("desktop visual details at a 1440px viewport", async (t) => {
       usesAsset: true,
       width: 175,
       height: 44,
+    });
+  });
+
+  await t.test("extends the class-flow line and moves its point when the next step opens", async () => {
+    const animation = await cdp.call("Runtime.evaluate", {
+      expression: `(async () => {
+        const track = document.querySelector('.flow-progress');
+        const line = document.querySelector('.flow-progress__line');
+        const dot = document.querySelector('.flow-progress__dot');
+        const next = document.querySelector('.flow-panel:not([hidden]) .flow-next');
+        if (!track || !line || !dot || !next) return null;
+
+        const read = () => {
+          const trackRect = track.getBoundingClientRect();
+          const lineRect = line.getBoundingClientRect();
+          const dotRect = dot.getBoundingClientRect();
+          return {
+            lineWidth: Math.round(lineRect.width),
+            dotCenter: Math.round(dotRect.left + dotRect.width / 2 - trackRect.left),
+          };
+        };
+
+        const initial = read();
+        next.click();
+        await new Promise((resolve) => setTimeout(resolve, 90));
+        const middle = read();
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        const final = read();
+        return {
+          initial,
+          middle,
+          final,
+          selectedTab: document.querySelector('.flow-tab[aria-selected="true"]')?.id ?? null,
+        };
+      })()`,
+      awaitPromise: true,
+      returnByValue: true,
+    });
+
+    const value = animation.result.value;
+    assert.notEqual(value, null);
+    assert.deepEqual(value.initial, { lineWidth: 0, dotCenter: 0 });
+    assert.ok(
+      value.middle.lineWidth > 0 && value.middle.lineWidth < 203,
+      `flow animation samples were ${JSON.stringify(value)}`,
+    );
+    assert.ok(
+      value.middle.dotCenter > 0 && value.middle.dotCenter < 203,
+      `flow animation samples were ${JSON.stringify(value)}`,
+    );
+    assert.ok(Math.abs(value.final.lineWidth - 203) <= 2, `final line width was ${value.final.lineWidth}px`);
+    assert.ok(Math.abs(value.final.dotCenter - 203) <= 2, `final dot position was ${value.final.dotCenter}px`);
+    assert.equal(value.selectedTab, "flow-tab-1");
+  });
+
+  await t.test("reveals page sections once with AOS while scrolling", async () => {
+    const animation = await cdp.call("Runtime.evaluate", {
+      expression: `(async () => {
+        const target = document.querySelector('.pricing__copy[data-aos]');
+        if (!target) return null;
+
+        for (let attempt = 0; attempt < 20 && !target.classList.contains('aos-init'); attempt += 1) {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+        }
+        const initialized = target.classList.contains('aos-init');
+        target.scrollIntoView({ block: 'center' });
+        await new Promise((resolve) => setTimeout(resolve, 250));
+        const animatedIn = target.classList.contains('aos-animate');
+        window.scrollTo({ top: 0 });
+        await new Promise((resolve) => setTimeout(resolve, 250));
+        return {
+          animation: target.getAttribute('data-aos'),
+          initialized,
+          animatedIn,
+          remainsVisible: target.classList.contains('aos-animate'),
+        };
+      })()`,
+      awaitPromise: true,
+      returnByValue: true,
+    });
+
+    assert.deepEqual(animation.result.value, {
+      animation: "fade-right",
+      initialized: true,
+      animatedIn: true,
+      remainsVisible: true,
     });
   });
 });

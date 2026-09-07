@@ -11,7 +11,7 @@ export function HeroSection() {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="container hero__grid">
-        <div className="hero__copy">
+        <div className="hero__copy" data-aos="fade-right" data-aos-duration="700">
           <p className="eyebrow">학원 운영의 모든 것, 하나의 플랫폼으로</p>
           <h1 id="hero-title">
             학생의 오늘을 기록하고,<br />
@@ -43,11 +43,18 @@ export function BenefitsSection() {
   return (
     <section className="dark-section benefits" id="about" aria-labelledby="benefits-title">
       <div className="container">
-        <SectionLabel>WHY TODAYSTUDY?</SectionLabel>
-        <h2 id="benefits-title">학원을 가장 잘 아는<br />사람들이 만들었습니다</h2>
+        <div className="benefits__heading" data-aos="fade-up">
+          <SectionLabel>WHY TODAYSTUDY?</SectionLabel>
+          <h2 id="benefits-title">학원을 가장 잘 아는<br />사람들이 만들었습니다</h2>
+        </div>
         <div className="benefit-grid">
-          {benefits.map((benefit) => (
-            <article className="benefit-card" key={benefit.title}>
+          {benefits.map((benefit, index) => (
+            <article
+              className="benefit-card"
+              data-aos="fade-up"
+              data-aos-delay={index * 80}
+              key={benefit.title}
+            >
               <Image
                 alt=""
                 className="benefit-card__icon"
@@ -77,7 +84,7 @@ export function AttendanceSection() {
   return (
     <section className="attendance" id="features" aria-labelledby="attendance-title">
       <div className="container attendance__grid">
-        <div className="section-copy">
+        <div className="section-copy" data-aos="fade-right">
           <SectionLabel>FEATURES</SectionLabel>
           <h2 id="attendance-title">태블릿으로 끝내는<br />출석 체크와 자동 알림</h2>
           <p>태블릿으로 간편하게 출결을 관리하고,<br />실시간으로 학부모에게 알림을 전송하세요.</p>
@@ -97,7 +104,7 @@ export function FeatureShowcaseSection() {
   return (
     <section className="feature-showcase" aria-labelledby="showcase-title">
       <div className="container feature-showcase__inner">
-        <div className="feature-showcase__copy">
+        <div className="feature-showcase__copy" data-aos="fade-right">
           <SectionLabel>SMART &amp; SIMPLE</SectionLabel>
           <h2 id="showcase-title">직관적인 화면 강력한 기능</h2>
           <p>누구나 쉽게, 그러나 강력하게 사용할 수 있도록<br />오늘의 스터디는 사용성을 최우선으로 설계했습니다.</p>
@@ -122,7 +129,7 @@ export function TestimonialsSection() {
   return (
     <section className="testimonials" id="stories" aria-labelledby="stories-title">
       <div className="container testimonials__grid">
-        <div className="testimonials__copy">
+        <div className="testimonials__copy" data-aos="fade-right">
           <SectionLabel>TRUST &amp; REVIEWS</SectionLabel>
           <h2 id="stories-title">현장에서 먼저<br />변화를 경험한 분들의 이야기</h2>
           <p>오늘의 스터디는 더 나은 교육을 위해,<br />지금도 많은 학원과 함께하고 있습니다.</p>
@@ -132,7 +139,7 @@ export function TestimonialsSection() {
             <div className="metric"><b>1,200<span>+</span></b><span>누적 고객수</span></div>
           </div>
         </div>
-        <div className="testimonial-grid">
+        <div className="testimonial-grid" data-aos="fade-left">
           {testimonials.map((testimonial) => (
             <article className="testimonial-card" key={testimonial.name}>
               <Image
@@ -191,7 +198,7 @@ export function PricingSection() {
   return (
     <section className="pricing" id="pricing" aria-labelledby="pricing-title">
       <div className="container pricing__grid">
-        <div className="pricing__copy">
+        <div className="pricing__copy" data-aos="fade-right">
           <SectionLabel>PRICING</SectionLabel>
           <h2 id="pricing-title">공부 관리,<br />이제는<br /><em>시스템</em>의 차이</h2>
           <p>오늘의스터디는 학습 관리부터 성과 분석까지<br />학원 운영에 필요한 모든 기능을 제공합니다.<br />규모와 목적에 맞는 플랜을 선택해보세요.</p>
@@ -201,7 +208,7 @@ export function PricingSection() {
             <div className="pricing-point"><span aria-hidden="true">◇</span><div><b>안심하고 사용</b><small>데이터 보안ㆍ안정성 보장</small></div></div>
           </div>
         </div>
-        <div className="pricing-cards">
+        <div className="pricing-cards" data-aos="fade-left">
           <PriceCard index={0} />
           <div className="pricing-cards__side">
             <PriceCard index={1} />
@@ -220,7 +227,7 @@ export function FinalCtaSection() {
       aria-labelledby="final-cta-title"
       style={{ backgroundImage: "url('/img/cta_bg.png')" }}
     >
-      <div className="container final-cta__inner">
+      <div className="container final-cta__inner" data-aos="fade-up">
         <SectionLabel>PRICING</SectionLabel>
         <h2 id="final-cta-title">지금 시작하면,<br />학원의 <em>내일</em>이 달라집니다.</h2>
         <p>14일 무료 체험으로 오늘의 스터디를 직접 경험해보세요.</p>
@@ -236,7 +243,7 @@ export function FinalCtaSection() {
 export function Footer() {
   return (
     <footer className="site-footer" id="contact">
-      <div className="container site-footer__grid">
+      <div className="container site-footer__grid" data-aos="fade-up">
         <div className="footer-content">
           <BrandMark />
           <p className="footer-intro">학원 운영의 모든 것, 하나의 플랫폼으로<br />학생의 오늘을 기록하고, 학원의 내일을 만듭니다.</p>
