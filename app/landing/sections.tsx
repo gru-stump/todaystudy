@@ -1,10 +1,10 @@
-import { benefits } from "./content";
+import { benefits, pricingPlans, testimonials } from "./content";
 import {
   AttendanceDashboard,
   HeroDevices,
   ManagementDashboard,
 } from "./mockups";
-import { CheckMark, CtaLink, SectionLabel } from "./ui";
+import { BrandMark, CheckMark, CtaLink, SectionLabel } from "./ui";
 
 export function HeroSection() {
   return (
@@ -107,5 +107,126 @@ export function FeatureShowcaseSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+export function TestimonialsSection() {
+  return (
+    <section className="testimonials" id="stories" aria-labelledby="stories-title">
+      <div className="container testimonials__grid">
+        <div className="testimonials__copy">
+          <SectionLabel>TRUST &amp; REVIEWS</SectionLabel>
+          <h2 id="stories-title">현장에서 먼저<br />변화를 경험한 분들의 이야기</h2>
+          <p>오늘의 스터디는 더 나은 교육을 위해,<br />지금도 많은 학원과 함께하고 있습니다.</p>
+          <div className="metrics" aria-label="서비스 주요 지표">
+            <div className="metric"><b>98%</b><span>서비스 만족도</span></div>
+            <div className="metric"><b>4.8<span>/5</span></b><span>평균 평점</span></div>
+            <div className="metric"><b>1,200<span>+</span></b><span>누적 고객수</span></div>
+          </div>
+        </div>
+        <div className="testimonial-grid">
+          {testimonials.map((testimonial, index) => (
+            <article className="testimonial-card" key={testimonial.name}>
+              <div
+                aria-label={testimonial.name + " 인터뷰 이미지"}
+                className={"testimonial-card__portrait testimonial-card__portrait--" + (index + 1)}
+                role="img"
+                style={{ backgroundImage: "url(" + testimonial.image + ")" }}
+              />
+              <div className="testimonial-card__quote">
+                <span aria-hidden="true">“</span>
+                <p>{testimonial.quote}</p>
+                <b>{testimonial.name}</b>
+                <small>{testimonial.role}</small>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PriceCard({ index }: { index: number }) {
+  const plan = pricingPlans[index];
+  return (
+    <article className={"price-card" + (plan.featured ? " price-card--featured" : "")}>
+      {plan.badge ? <span className="price-card__badge">{plan.badge}</span> : null}
+      <h3>{plan.name}</h3>
+      <p>{plan.description}</p>
+      <div className="price-card__price">
+        <b>{plan.price}</b><span>{plan.unit}</span>
+      </div>
+      <ul>
+        {plan.features.map((feature) => (
+          <li key={feature}><CheckMark />{feature}</li>
+        ))}
+      </ul>
+      <CtaLink href="#contact" variant={plan.featured ? "dark" : "secondary"}>
+        {plan.price === "별도 문의" ? "도입 문의하기 →" : "14일 무료 체험 시작 →"}
+      </CtaLink>
+    </article>
+  );
+}
+
+export function PricingSection() {
+  return (
+    <section className="pricing" id="pricing" aria-labelledby="pricing-title">
+      <div className="container pricing__grid">
+        <div className="pricing__copy">
+          <SectionLabel>PRICING</SectionLabel>
+          <h2 id="pricing-title">공부 관리,<br />이제는 <em>시스템</em>의 차이</h2>
+          <p>오늘의스터디는 학습 관리부터 성과 분석까지<br />학원 운영에 필요한 모든 기능을 제공합니다.</p>
+          <div className="pricing-points">
+            <span>▣ 14일 무료 체험</span>
+            <span>⊖ 도입 상담 가능</span>
+            <span>◇ 안심하고 사용</span>
+          </div>
+        </div>
+        <div className="pricing-cards">
+          <PriceCard index={0} />
+          <div className="pricing-cards__side">
+            <PriceCard index={1} />
+            <PriceCard index={2} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function FinalCtaSection() {
+  return (
+    <section className="final-cta" aria-labelledby="final-cta-title">
+      <div className="container final-cta__inner">
+        <SectionLabel>PRICING</SectionLabel>
+        <h2 id="final-cta-title">지금 시작하면,<br />학원의 <em>내일</em>이 달라집니다.</h2>
+        <p>14일 무료 체험으로 오늘의 스터디를 직접 경험해보세요.</p>
+        <div className="button-row">
+          <CtaLink href="#pricing">무료로 시작하기 →</CtaLink>
+          <CtaLink href="#contact" variant="dark">도입 문의하기</CtaLink>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer className="site-footer" id="contact">
+      <div className="container site-footer__grid">
+        <div>
+          <BrandMark />
+          <p className="footer-intro">학원 운영의 모든 것, 하나의 플랫폼으로<br />학생의 오늘을 기록하고, 학원의 내일을 만듭니다.</p>
+          <p className="footer-meta">주식회사 프라이머스&nbsp;&nbsp;|&nbsp;&nbsp;대표 김도윤<br />사업자등록번호 485-86-03027</p>
+          <small>© 2026 Primers. All rights reserved.</small>
+        </div>
+        <address>
+          <b>문의하기</b>
+          <a href="tel:0519398154">☎&nbsp; 051.939.8154</a>
+          <a href="mailto:sales@primers.co.kr">✉&nbsp; sales@primers.co.kr</a>
+        </address>
+      </div>
+    </footer>
   );
 }

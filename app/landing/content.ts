@@ -90,3 +90,60 @@ export const flowSteps: FlowStep[] = [
     checklist: ["수업 결과 공유", "상담 일정 안내", "공지 발송", "확인 여부 추적"],
   },
 ];
+
+export const testimonials: Testimonial[] = [
+  {
+    quote: "수업이 더 체계적으로 바뀌고 운영 시간을 줄일 수 있었어요.",
+    name: "김수연 원장",
+    role: "서울 봄빛학원 · 예시 후기",
+    image: "/testimonials.png",
+  },
+  {
+    quote: "운영 현황과 학습 데이터를 한눈에 보며 훨씬 효율적입니다.",
+    name: "박도윤 원장",
+    role: "대전 이음학원 · 예시 후기",
+    image: "/testimonials.png",
+  },
+  {
+    quote: "학부모와의 소통이 빨라지고 놓치는 일이 줄었습니다.",
+    name: "이하린 원장",
+    role: "부산 나래학원 · 예시 후기",
+    image: "/testimonials.png",
+  },
+];
+
+export const pricingPlans: PricingPlan[] = [
+  {
+    name: "Premium",
+    description: "성장하는 학원을 위한 최적의 선택",
+    price: "199,000",
+    unit: "원/월",
+    featured: true,
+    badge: "가장 인기 있는 플랜",
+    features: [
+      "Starter의 모든 기능 포함",
+      "AI 학습 분석 통계 리포트",
+      "학부모 커뮤니케이션 자동 발송",
+      "학원 수 무제한",
+    ],
+  },
+  {
+    name: "Starter",
+    description: "소규모 학원을 위한 필수 플랜",
+    price: "99,000",
+    unit: "원/월",
+    features: ["태블릿 출결 체크", "기본 학생 관리", "학부모 공지", "월간 리포트"],
+  },
+  {
+    name: "Enterprise",
+    description: "프랜차이즈·대형 학원 맞춤",
+    price: "별도 문의",
+    unit: "",
+    features: [
+      "Premium의 모든 기능 포함",
+      "다지점 통합 관리",
+      "전용 시스템 연동",
+      "운영·마케팅 지원",
+    ],
+  },
+];

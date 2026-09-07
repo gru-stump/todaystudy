@@ -5,7 +5,11 @@ import {
   AttendanceSection,
   BenefitsSection,
   FeatureShowcaseSection,
+  FinalCtaSection,
+  Footer,
   HeroSection,
+  PricingSection,
+  TestimonialsSection,
 } from "./landing/sections";
 
 export const metadata: Metadata = {
@@ -24,7 +28,11 @@ export default function Home() {
         <AttendanceSection />
         <ClassFlowSection />
         <FeatureShowcaseSection />
+        <TestimonialsSection />
+        <PricingSection />
+        <FinalCtaSection />
       </main>
+      <Footer />
     </>
   );
 }

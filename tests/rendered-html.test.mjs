@@ -63,3 +63,22 @@ test("renders all five academy workflow steps and management feature", async () 
   assert.match(html, /통합 학생 관리/);
   assert.match(html, /빠른 알림/);
 });
+
+test("renders proof, pricing, final CTA, and contact information", async () => {
+  const html = await (await render()).text();
+  assert.match(html, /현장에서 먼저/);
+  assert.match(html, /변화를 경험한 분들의 이야기/);
+  assert.match(html, /98%/);
+  assert.match(html, /4\.8/);
+  assert.match(html, /1,200/);
+  assert.match(html, /Premium/);
+  assert.match(html, /199,000/);
+  assert.match(html, /Starter/);
+  assert.match(html, /99,000/);
+  assert.match(html, /Enterprise/);
+  assert.match(html, /지금 시작하면/);
+  assert.match(html, /학원의/);
+  assert.match(html, /내일/);
+  assert.match(html, /이 달라집니다/);
+  assert.match(html, /sales@primers\.co\.kr/);
+});
