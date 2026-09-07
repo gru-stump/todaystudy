@@ -131,3 +131,50 @@ export function AttendanceDashboard() {
     </div>
   );
 }
+
+export function ManagementDashboard() {
+  return (
+    <div className="management-dashboard" aria-label="학원 통합 관리 대시보드 목업">
+      <div className="management-dashboard__top">
+        <span className="mini-brand">오늘의스터디</span>
+        <span>통합 관리</span>
+        <span>프라이머스 학원</span>
+      </div>
+      <div className="management-dashboard__body">
+        <aside>
+          <b>대시보드</b>
+          <span>학생 관리</span>
+          <span>출결 관리</span>
+          <span>수업 관리</span>
+          <span>성과 분석</span>
+        </aside>
+        <div className="management-content">
+          <div className="management-content__heading">
+            <div><small>DASHBOARD</small><strong>학원 운영 현황</strong></div>
+            <button type="button">리포트 보기</button>
+          </div>
+          <div className="management-stats">
+            <div><small>전체 학생</small><b>1,248</b><em>+12%</em></div>
+            <div><small>오늘 출석률</small><b>96.8%</b><em>+2.4%</em></div>
+            <div><small>진행 수업</small><b>24</b><em>정상</em></div>
+            <div><small>확인 알림</small><b>8</b><em>확인</em></div>
+          </div>
+          <div className="management-panels">
+            <div>
+              <strong>최근 출결</strong>
+              <p><i />김하늘 <span>13:10 출석</span></p>
+              <p><i />박준서 <span>13:17 출석</span></p>
+              <p><i />이서윤 <span>13:24 지각</span></p>
+            </div>
+            <div>
+              <strong>예정 수업</strong>
+              <p><b>16:00</b> 고등 영어 B</p>
+              <p><b>17:30</b> 중등 수학 A</p>
+              <p><b>19:00</b> 고등 수학 C</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

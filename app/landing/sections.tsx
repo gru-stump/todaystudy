@@ -1,5 +1,9 @@
 import { benefits } from "./content";
-import { AttendanceDashboard, HeroDevices } from "./mockups";
+import {
+  AttendanceDashboard,
+  HeroDevices,
+  ManagementDashboard,
+} from "./mockups";
 import { CheckMark, CtaLink, SectionLabel } from "./ui";
 
 export function HeroSection() {
@@ -76,6 +80,31 @@ export function AttendanceSection() {
           </ul>
         </div>
         <AttendanceDashboard />
+      </div>
+    </section>
+  );
+}
+
+export function FeatureShowcaseSection() {
+  return (
+    <section className="feature-showcase" aria-labelledby="showcase-title">
+      <div className="container feature-showcase__inner">
+        <div className="feature-showcase__copy">
+          <SectionLabel>SMART &amp; SIMPLE</SectionLabel>
+          <h2 id="showcase-title">직관적인 화면 강력한 기능</h2>
+          <p>누구나 쉽게, 그러나 강력하게 사용할 수 있도록<br />오늘의 스터디는 사용성을 최우선으로 설계했습니다.</p>
+        </div>
+        <div className="management-stage">
+          <div className="feature-callout feature-callout--left">
+            <span aria-hidden="true">✦</span>
+            <div><b>통합 학생 관리</b><p>필요한 정보를<br />한눈에 확인</p></div>
+          </div>
+          <ManagementDashboard />
+          <div className="feature-callout feature-callout--right">
+            <span aria-hidden="true">ϟ</span>
+            <div><b>빠른 알림</b><p>학부모와 학생에게<br />즉시 전달</p></div>
+          </div>
+        </div>
       </div>
     </section>
   );

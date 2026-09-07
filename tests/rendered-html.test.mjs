@@ -53,3 +53,13 @@ test("renders the benefits and attendance product story", async () => {
   assert.match(html, /출석 체크와 자동 알림/);
   assert.match(html, /QR체크인 출석 지원/);
 });
+
+test("renders all five academy workflow steps and management feature", async () => {
+  const html = await (await render()).text();
+  for (const label of ["수업준비", "학생 등원", "수업 진행", "성장 분석", "학부모 소통"]) {
+    assert.match(html, new RegExp(label));
+  }
+  assert.match(html, /직관적인 화면 강력한 기능/);
+  assert.match(html, /통합 학생 관리/);
+  assert.match(html, /빠른 알림/);
+});

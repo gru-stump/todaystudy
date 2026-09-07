@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Header } from "./landing/Header";
+import { ClassFlowSection } from "./landing/ClassFlowSection";
 import {
   AttendanceSection,
   BenefitsSection,
+  FeatureShowcaseSection,
   HeroSection,
 } from "./landing/sections";
 
@@ -20,6 +22,8 @@ export default function Home() {
         <HeroSection />
         <BenefitsSection />
         <AttendanceSection />
+        <ClassFlowSection />
+        <FeatureShowcaseSection />
       </main>
     </>
   );
