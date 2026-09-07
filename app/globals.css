@@ -1332,7 +1332,8 @@ summary {
   z-index: 3;
   display: flex;
   width: 174px;
-  height: 79px;
+  min-height: 79px;
+  height: auto;
   align-items: flex-start;
   justify-content: center;
   gap: 9px;
@@ -1620,11 +1621,11 @@ summary {
 .pricing h2 em::after {
   position: absolute;
   z-index: -1;
-  right: -5px;
-  bottom: 1px;
-  left: -5px;
-  height: 8px;
-  background: var(--lime);
+  bottom: -2px;
+  left: -12px;
+  width: 175px;
+  height: 44px;
+  background: url("/img/pricong_drawing.svg") center / 100% 100% no-repeat;
   content: "";
 }
 
@@ -3323,9 +3324,10 @@ summary {
   .feature-callout {
     min-width: 0;
     width: 174px;
-    height: 79px;
+    min-height: 79px;
+    height: auto;
     gap: 8px;
-    padding: 13px 12px;
+    padding: 10px 12px;
   }
 
   .feature-callout b,

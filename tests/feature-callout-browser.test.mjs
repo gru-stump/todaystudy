@@ -59,7 +59,7 @@ async function connectCdp(url) {
   };
 }
 
-test("anchors the action callout to the mockup's right edge at a 1280px viewport", async (t) => {
+test("desktop visual details at a 1440px viewport", async (t) => {
   const projectRoot = resolve(import.meta.dirname, "..");
   const sitePort = await reservePort();
   const debugPort = await reservePort();
@@ -80,7 +80,7 @@ test("anchors the action callout to the mockup's right edge at a 1280px viewport
       "--hide-scrollbars",
       "--remote-allow-origins=*",
       `--remote-debugging-port=${debugPort}`,
-      "--window-size=1280,900",
+      "--window-size=1440,900",
       `--user-data-dir=${profileDir}`,
       "about:blank",
     ],
@@ -109,7 +109,7 @@ test("anchors the action callout to the mockup's right edge at a 1280px viewport
   t.after(() => cdp.close());
 
   await cdp.call("Emulation.setDeviceMetricsOverride", {
-    width: 1280,
+    width: 1440,
     height: 900,
     deviceScaleFactor: 1,
     mobile: false,
@@ -133,6 +133,8 @@ test("anchors the action callout to the mockup's right edge at a 1280px viewport
         const rect = element.getBoundingClientRect();
         const copy = element.querySelector('p');
         const icon = element.querySelector('img');
+        const content = element.querySelector(':scope > div').getBoundingClientRect();
+        const iconRect = icon?.getBoundingClientRect();
         const geometry = {
           x: Math.round(rect.left - inner.left),
           y: Math.round(rect.top - section.top),
@@ -140,6 +142,8 @@ test("anchors the action callout to the mockup's right edge at a 1280px viewport
           height: Math.round(rect.height),
           copyHeight: Math.round(copy.getBoundingClientRect().height),
           iconSize: icon ? Math.round(icon.getBoundingClientRect().width) : 0,
+          overflowY: Math.max(0, element.scrollHeight - element.clientHeight),
+          contentBottomInset: Math.round(rect.bottom - Math.max(content.bottom, iconRect?.bottom ?? 0)),
         };
         if (relateToStage) {
           geometry.edgeDelta = Math.round((rect.left + rect.width / 2) - stage.right);
@@ -150,22 +154,54 @@ test("anchors the action callout to the mockup's right edge at a 1280px viewport
       return {
         overview: read('.feature-callout--overview'),
         action: read('.feature-callout--action', true),
+        pricingDrawing: (() => {
+          const accent = document.querySelector('.pricing h2 em');
+          const style = getComputedStyle(accent, '::after');
+          return {
+            usesAsset: style.backgroundImage.includes('/img/pricong_drawing.svg'),
+            width: Math.round(Number.parseFloat(style.width)),
+            height: Math.round(Number.parseFloat(style.height)),
+          };
+        })(),
       };
     })()`,
     returnByValue: true,
   });
 
-  assert.deepEqual(result.result.value, {
-    overview: { x: 367, y: 69, width: 169, height: 79, copyHeight: 36, iconSize: 16 },
-    action: {
+  await t.test("keeps callout copy inside each card and anchors the action card to the mockup", () => {
+    const { contentBottomInset: overviewInset, height: overviewHeight, ...overview } = result.result.value.overview;
+    const { contentBottomInset: actionInset, height: actionHeight, ...action } = result.result.value.action;
+    assert.ok(overviewInset >= 10, `overview bottom inset was ${overviewInset}px`);
+    assert.ok(actionInset >= 10, `action bottom inset was ${actionInset}px`);
+    assert.ok(overviewHeight >= 79, `overview height was ${overviewHeight}px`);
+    assert.ok(actionHeight >= 79, `action height was ${actionHeight}px`);
+    assert.deepEqual(overview, {
+      x: 367,
+      y: 69,
+      width: 174,
+      copyHeight: 36,
+      iconSize: 16,
+      overflowY: 0,
+    });
+    assert.deepEqual(action, {
       x: 1097,
       y: 149,
       width: 174,
-      height: 79,
       copyHeight: 36,
       iconSize: 16,
+      overflowY: 0,
       edgeDelta: 0,
       stageY: 105,
-    },
+    });
+  });
+
+  await t.test("renders the supplied pricing drawing behind the system label", async () => {
+    const assetResponse = await fetch(`http://127.0.0.1:${sitePort}/img/pricong_drawing.svg`);
+    assert.equal(assetResponse.status, 200);
+    assert.deepEqual(result.result.value.pricingDrawing, {
+      usesAsset: true,
+      width: 175,
+      height: 44,
+    });
   });
 });
