@@ -9,6 +9,12 @@ const css = await readFile(
 const heroPng = await readFile(
   new URL("../public/img/hero_mockup.png", import.meta.url),
 );
+const featuresPng = await readFile(
+  new URL("../public/img/features_moockup.png", import.meta.url),
+);
+const flowBeforePng = await readFile(
+  new URL("../public/img/cramclassflow_01.png", import.meta.url),
+);
 
 test("caps the shared page container at 1280px", () => {
   assert.match(css, /--container:\s*1280px;/);
@@ -26,6 +32,16 @@ test("keeps the desktop hero artwork fully contained", () => {
 test("uses the full-resolution Figma hero source", () => {
   assert.equal(heroPng.readUInt32BE(16), 3000);
   assert.equal(heroPng.readUInt32BE(20), 2000);
+});
+
+test("uses the supplied high-density attendance mockup", () => {
+  assert.equal(featuresPng.readUInt32BE(16), 2625);
+  assert.equal(featuresPng.readUInt32BE(20), 1554);
+});
+
+test("uses the supplied high-density before-class mockup", () => {
+  assert.equal(flowBeforePng.readUInt32BE(16), 1928);
+  assert.equal(flowBeforePng.readUInt32BE(20), 1328);
 });
 
 test("frames the full hero source without clipping the device artwork", () => {
