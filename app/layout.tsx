@@ -62,6 +62,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+      </head>
       <body className={geistSans.variable}>
         <SmoothScroll>
           <AosInit />

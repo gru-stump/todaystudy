@@ -246,6 +246,52 @@ test("desktop visual details at a 1440px viewport", async (t) => {
     assert.match(font.result.value.family, /Pretendard Variable/);
   });
 
+  await t.test("serves a favicon that follows the browser color scheme", async () => {
+    const favicon = await cdp.call("Runtime.evaluate", {
+      expression: `document.querySelector('link[rel="icon"][type="image/svg+xml"]')?.href ?? null`,
+      returnByValue: true,
+    });
+    assert.equal(favicon.result.value, `http://127.0.0.1:${sitePort}/favicon.svg?v=2`);
+
+    await cdp.call("Page.navigate", { url: favicon.result.value });
+    await waitFor(async () => {
+      const ready = await cdp.call("Runtime.evaluate", {
+        expression: "document.readyState === 'complete' && Boolean(document.querySelector('path'))",
+        returnByValue: true,
+      });
+      return ready.result.value;
+    });
+
+    await cdp.call("Emulation.setEmulatedMedia", {
+      features: [{ name: "prefers-color-scheme", value: "light" }],
+    });
+    const light = await cdp.call("Runtime.evaluate", {
+      expression: "getComputedStyle(document.querySelector('path')).fill",
+      returnByValue: true,
+    });
+
+    await cdp.call("Emulation.setEmulatedMedia", {
+      features: [{ name: "prefers-color-scheme", value: "dark" }],
+    });
+    const dark = await cdp.call("Runtime.evaluate", {
+      expression: "getComputedStyle(document.querySelector('path')).fill",
+      returnByValue: true,
+    });
+
+    assert.equal(light.result.value, "rgb(17, 17, 17)");
+    assert.equal(dark.result.value, "rgb(255, 255, 255)");
+
+    await cdp.call("Emulation.setEmulatedMedia", { features: [] });
+    await cdp.call("Page.navigate", { url: `http://127.0.0.1:${sitePort}/` });
+    await waitFor(async () => {
+      const ready = await cdp.call("Runtime.evaluate", {
+        expression: "document.readyState === 'complete' && Boolean(document.querySelector('.hero'))",
+        returnByValue: true,
+      });
+      return ready.result.value;
+    });
+  });
+
   await t.test("keeps the hero scroll cue moving while the pointer rests on it", async () => {
     const initial = await cdp.call("Runtime.evaluate", {
       expression: `(() => {
