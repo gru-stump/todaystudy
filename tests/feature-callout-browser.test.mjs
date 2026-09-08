@@ -662,6 +662,50 @@ test("desktop visual details at a 1440px viewport", async (t) => {
     assert.ok(value.finalOpacity > 0.99, `final opacity was ${value.finalOpacity}`);
   });
 
+  await t.test("keeps the requested hero scroll cue moving under the Windows reduced-motion setting", async () => {
+    await cdp.call("Page.navigate", {
+      url: `http://127.0.0.1:${sitePort}/?scroll-cue-motion=reduce`,
+    });
+    await waitFor(async () => {
+      const ready = await cdp.call("Runtime.evaluate", {
+        expression: "document.readyState",
+        returnByValue: true,
+      });
+      return ready.result.value === "complete";
+    });
+
+    const animation = await cdp.call("Runtime.evaluate", {
+      expression: `(async () => {
+        const cue = document.querySelector('.scroll-cue');
+        const mouse = cue?.querySelector('span');
+        if (!cue || !mouse) return null;
+        const read = () => ({
+          cueName: getComputedStyle(cue).animationName,
+          cueY: new DOMMatrixReadOnly(getComputedStyle(cue).transform).m42,
+          wheelName: getComputedStyle(mouse, '::after').animationName,
+          wheelY: new DOMMatrixReadOnly(getComputedStyle(mouse, '::after').transform).m42,
+        });
+        const initial = read();
+        await new Promise((resolve) => setTimeout(resolve, 350));
+        return {
+          initial,
+          matchesReducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
+          moved: read(),
+        };
+      })()`,
+      awaitPromise: true,
+      returnByValue: true,
+    });
+
+    const value = animation.result.value;
+    assert.notEqual(value, null);
+    assert.equal(value.matchesReducedMotion, true);
+    assert.notEqual(value.initial.cueName, "none", JSON.stringify(value));
+    assert.notEqual(value.initial.wheelName, "none", JSON.stringify(value));
+    assert.ok(Math.abs(value.moved.cueY - value.initial.cueY) >= 1, JSON.stringify(value));
+    assert.ok(Math.abs(value.moved.wheelY - value.initial.wheelY) >= 1, JSON.stringify(value));
+  });
+
   await t.test("smoothly reveals the next class-flow panel under the platform reduced-motion setting", async () => {
     const animation = await cdp.call("Runtime.evaluate", {
       expression: `(async () => {

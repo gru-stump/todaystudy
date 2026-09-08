@@ -2377,10 +2377,14 @@ summary {
     transition-duration: 300ms !important;
   }
 
-  .scroll-cue,
-  .scroll-cue span::after {
-    animation: none !important;
+  .scroll-cue {
+    animation-duration: 1.8s !important;
   }
+
+  .scroll-cue span::after {
+    animation-duration: 1.3s !important;
+  }
+
 }
 
 /* Supplied production artwork */
