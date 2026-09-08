@@ -2,7 +2,7 @@
 
 학원 운영에 필요한 출결, 학습 관리, 분석, 학부모 소통 기능을 소개하는 **오늘의스터디 랜딩페이지**입니다.
 
-![오늘의스터디 미리보기](./public/og.png)
+![오늘의스터디 실제 배포 화면](./public/readme-preview.png)
 
 ## 관련 링크
 
@@ -75,7 +75,8 @@ todaystudy/
 │  └─ page.tsx              # 랜딩페이지 진입점
 ├─ public/
 │  ├─ img/                  # 목업, 플로우, 아이콘, 후기 이미지
-│  └─ og.png                # 공유 및 README 미리보기 이미지
+│  ├─ og.png                # 소셜 공유 이미지
+│  └─ readme-preview.png    # 실제 배포 화면 캡처
 ├─ tests/                   # 레이아웃, 렌더링, 브라우저 회귀 테스트
 ├─ worker/                  # 배포 런타임 진입점
 ├─ .openai/hosting.json     # Sites 프로젝트 연결 설정
