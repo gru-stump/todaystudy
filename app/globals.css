@@ -1722,16 +1722,21 @@ summary {
   gap: 80px;
 }
 
+.pricing h2 {
+  position: relative;
+  isolation: isolate;
+}
+
 .pricing h2 em {
   position: relative;
-  z-index: 1;
+  z-index: auto;
   font-style: normal;
 }
 
 .pricing h2 em::after {
   position: absolute;
   z-index: -1;
-  bottom: -2px;
+  bottom: -10px;
   left: -12px;
   width: 175px;
   height: 44px;
@@ -1744,7 +1749,6 @@ summary {
   flex-wrap: wrap;
   gap: 22px;
   margin-top: 34px;
-  font-size: 11px;
   font-weight: 760;
 }
 
@@ -1756,25 +1760,35 @@ summary {
 
 .pricing-point > span {
   display: grid;
-  width: 32px;
-  height: 32px;
-  flex: 0 0 32px;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
   place-items: center;
   color: var(--lime-dark);
 }
 
 .pricing-point__icon {
   display: block;
-  width: 24px;
-  height: 24px;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.7;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: invert(61%) sepia(96%) saturate(1309%) hue-rotate(37deg) brightness(91%) contrast(101%);
 }
 
-.pricing-point__dots {
-  stroke-width: 2.6;
+.pricing-point div {
+  display: grid;
+  gap: 2px;
+}
+
+.pricing-point b {
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.pricing-point small {
+  color: #777972;
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .pricing-cards {
@@ -2959,7 +2973,29 @@ summary {
 
   .flow-message {
     max-width: 150px;
-    font-size: 10px;
+  }
+
+  .section-label,
+  .flow-tab__phase,
+  .flow-copy > small,
+  .metric > span,
+  .price-card__badge,
+  .price-card > p,
+  .price-card__price span,
+  .price-card ul,
+  .price-card .cta,
+  .flow-message {
+    font-size: 12px;
+  }
+
+  .testimonial-card__quote-text {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .testimonial-card__author {
+    font-size: 14px;
+    line-height: 1.5;
   }
 }
 
@@ -4101,9 +4137,15 @@ summary {
     display: grid;
     width: 32px;
     height: 32px;
+    flex: 0 0 32px;
     place-items: center;
     color: var(--lime-dark);
     font-size: 20px;
+  }
+
+  .pricing-point__icon {
+    width: 24px;
+    height: 24px;
   }
 
   .pricing-point div {

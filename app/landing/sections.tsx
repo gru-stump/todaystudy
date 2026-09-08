@@ -203,29 +203,19 @@ function PriceCard({ index }: { index: number }) {
 }
 
 function PricingPointIcon({ kind }: { kind: "trial" | "consult" | "security" }) {
-  if (kind === "trial") {
-    return (
-      <svg className="pricing-point__icon" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
-        <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
-        <path d="M8 3.5v4M16 3.5v4M3.5 9.5h17M8 15l2.2 2.2L16 12" />
-      </svg>
-    );
-  }
-
-  if (kind === "consult") {
-    return (
-      <svg className="pricing-point__icon" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
-        <path d="M21 11.5a8.1 8.1 0 0 1-8.5 8A9.5 9.5 0 0 1 8 18.3L3 21l1.7-4.6A8.2 8.2 0 1 1 21 11.5Z" />
-        <path className="pricing-point__dots" d="M8 11.5h.01M12 11.5h.01M16 11.5h.01" />
-      </svg>
-    );
-  }
-
   return (
-    <svg className="pricing-point__icon" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
-      <path d="m8.5 12 2.2 2.2 4.8-4.8" />
-    </svg>
+    <Image
+      className="pricing-point__icon"
+      src={{
+        trial: "/img/icon_calendar.svg",
+        consult: "/img/icon_comment.svg",
+        security: "/img/icon_shield.svg",
+      }[kind]}
+      alt=""
+      width={30}
+      height={30}
+      aria-hidden="true"
+    />
   );
 }
 

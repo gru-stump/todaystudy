@@ -163,21 +163,31 @@ test("desktop visual details at a 1440px viewport", async (t) => {
         ).top,
         pricingDrawing: (() => {
           const accent = document.querySelector('.pricing h2 em');
+          const title = document.querySelector('.pricing h2');
+          const accentStyle = getComputedStyle(accent);
           const style = getComputedStyle(accent, '::after');
           return {
             usesAsset: style.backgroundImage.includes('/img/pricong_drawing.svg'),
             width: Math.round(Number.parseFloat(style.width)),
             height: Math.round(Number.parseFloat(style.height)),
+            bottom: Math.round(Number.parseFloat(style.bottom)),
+            accentZIndex: accentStyle.zIndex,
+            titleIsolation: getComputedStyle(title).isolation,
           };
         })(),
         pricingIcons: Array.from(document.querySelectorAll('.pricing-point')).map((point) => {
           const outer = point.querySelector(':scope > span')?.getBoundingClientRect();
-          const icon = point.querySelector('svg')?.getBoundingClientRect();
+          const iconElement = point.querySelector('.pricing-point__icon');
+          const icon = iconElement?.getBoundingClientRect();
           return {
             iconHeight: icon ? Math.round(icon.height) : 0,
             iconWidth: icon ? Math.round(icon.width) : 0,
             outerHeight: outer ? Math.round(outer.height) : 0,
             outerWidth: outer ? Math.round(outer.width) : 0,
+            source: iconElement instanceof HTMLImageElement
+              ? new URL(iconElement.currentSrc || iconElement.src).pathname
+              : null,
+            tag: iconElement?.tagName ?? null,
           };
         }),
       };
@@ -212,21 +222,35 @@ test("desktop visual details at a 1440px viewport", async (t) => {
     });
   });
 
-  await t.test("renders the supplied pricing drawing behind the system label", async () => {
+  await t.test("keeps the pricing drawing low and behind the complete title line", async () => {
     const assetResponse = await fetch(`http://127.0.0.1:${sitePort}/img/pricong_drawing.svg`);
     assert.equal(assetResponse.status, 200);
     assert.deepEqual(result.result.value.pricingDrawing, {
       usesAsset: true,
       width: 175,
       height: 44,
+      bottom: -10,
+      accentZIndex: "auto",
+      titleIsolation: "isolate",
     });
+  });
+
+  await t.test("renders the three supplied pricing SVG assets", () => {
+    assert.deepEqual(
+      result.result.value.pricingIcons.map(({ source, tag }) => ({ source, tag })),
+      [
+        { source: "/img/icon_calendar.svg", tag: "IMG" },
+        { source: "/img/icon_comment.svg", tag: "IMG" },
+        { source: "/img/icon_shield.svg", tag: "IMG" },
+      ],
+    );
   });
 
   await t.test("renders three crisp pricing icons in their designed boxes", () => {
     assert.deepEqual(result.result.value.pricingIcons, [
-      { iconHeight: 24, iconWidth: 24, outerHeight: 32, outerWidth: 32 },
-      { iconHeight: 24, iconWidth: 24, outerHeight: 32, outerWidth: 32 },
-      { iconHeight: 24, iconWidth: 24, outerHeight: 32, outerWidth: 32 },
+      { iconHeight: 24, iconWidth: 24, outerHeight: 32, outerWidth: 32, source: "/img/icon_calendar.svg", tag: "IMG" },
+      { iconHeight: 24, iconWidth: 24, outerHeight: 32, outerWidth: 32, source: "/img/icon_comment.svg", tag: "IMG" },
+      { iconHeight: 24, iconWidth: 24, outerHeight: 32, outerWidth: 32, source: "/img/icon_shield.svg", tag: "IMG" },
     ]);
   });
 
@@ -1417,5 +1441,106 @@ test("desktop visual details at a 1440px viewport", async (t) => {
     assert.ok(people.width >= 198, `analysis people image is too small: ${JSON.stringify(analyze)}`);
     assert.ok(dashboard.left >= analyze.card.right, `checklist covers the dashboard heading: ${JSON.stringify(analyze)}`);
     assert.ok(dashboard.bottom >= people.top + 16, `analysis layers do not overlap enough: ${JSON.stringify(analyze)}`);
+  });
+
+  await t.test("keeps pricing benefits legible on mobile and tablet screens", async () => {
+    for (const viewport of [
+      { width: 390, height: 844, mobile: true },
+      { width: 768, height: 900, mobile: false },
+    ]) {
+      await cdp.call("Emulation.setDeviceMetricsOverride", {
+        ...viewport,
+        deviceScaleFactor: 1,
+      });
+      await cdp.call("Page.navigate", {
+        url: `http://127.0.0.1:${sitePort}/?pricing-benefits=${viewport.width}`,
+      });
+      await waitFor(async () => {
+        const ready = await cdp.call("Runtime.evaluate", {
+          expression: "document.readyState",
+          returnByValue: true,
+        });
+        return ready.result.value === "complete";
+      });
+
+      const result = await cdp.call("Runtime.evaluate", {
+        expression: `(() => {
+          const point = document.querySelector('.pricing-point');
+          const icon = point.querySelector('.pricing-point__icon');
+          const title = point.querySelector('b');
+          const detail = point.querySelector('small');
+          const rect = (element) => element.getBoundingClientRect();
+          return {
+            detailSize: Number.parseFloat(getComputedStyle(detail).fontSize),
+            iconHeight: Math.round(rect(icon).height),
+            iconWidth: Math.round(rect(icon).width),
+            titleSize: Number.parseFloat(getComputedStyle(title).fontSize),
+          };
+        })()`,
+        returnByValue: true,
+      });
+
+      assert.deepEqual(result.result.value, {
+        detailSize: 12,
+        iconHeight: 30,
+        iconWidth: 30,
+        titleSize: 15,
+      }, `${viewport.width}px pricing benefits are undersized`);
+    }
+  });
+
+  await t.test("keeps mobile page copy at a readable minimum size", async () => {
+    await cdp.call("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 1,
+      mobile: true,
+    });
+    await cdp.call("Page.navigate", {
+      url: `http://127.0.0.1:${sitePort}/?mobile-type-scale=1`,
+    });
+    await waitFor(async () => {
+      const ready = await cdp.call("Runtime.evaluate", {
+        expression: "document.readyState",
+        returnByValue: true,
+      });
+      return ready.result.value === "complete";
+    });
+
+    const result = await cdp.call("Runtime.evaluate", {
+      expression: `(() => {
+        const fontSize = (selector) => Number.parseFloat(
+          getComputedStyle(document.querySelector(selector)).fontSize,
+        );
+        return {
+          flowPhase: fontSize('.flow-tab__phase'),
+          flowStepLabel: fontSize('.flow-copy > small'),
+          metricLabel: fontSize('.metric > span'),
+          priceBadge: fontSize('.price-card__badge'),
+          priceButton: fontSize('.price-card .cta'),
+          priceDescription: fontSize('.price-card > p'),
+          priceList: fontSize('.price-card ul'),
+          pricePeriod: fontSize('.price-card__price span'),
+          reviewAuthor: fontSize('.testimonial-card__author'),
+          reviewText: fontSize('.testimonial-card__quote-text'),
+          sectionLabel: fontSize('.section-label'),
+        };
+      })()`,
+      returnByValue: true,
+    });
+
+    assert.deepEqual(result.result.value, {
+      flowPhase: 12,
+      flowStepLabel: 12,
+      metricLabel: 12,
+      priceBadge: 12,
+      priceButton: 12,
+      priceDescription: 12,
+      priceList: 12,
+      pricePeriod: 12,
+      reviewAuthor: 14,
+      reviewText: 15,
+      sectionLabel: 12,
+    });
   });
 });
