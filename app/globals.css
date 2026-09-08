@@ -652,6 +652,7 @@ summary {
   color: #9ca096;
   font-size: 9px;
   transform: translateX(-50%);
+  animation: scroll-cue-float 1.8s ease-in-out infinite;
 }
 
 .scroll-cue span {
@@ -670,6 +671,42 @@ summary {
   border-radius: 2px;
   background: #8f948a;
   content: "";
+  animation: scroll-wheel-move 1.3s ease-in-out infinite;
+}
+
+.scroll-cue:hover,
+.scroll-cue:hover span::after,
+.scroll-cue:focus-visible,
+.scroll-cue:focus-visible span::after {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-cue-float {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, -6px);
+  }
+}
+
+@keyframes scroll-wheel-move {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  22%,
+  68% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
 }
 
 .section-label {
@@ -2340,6 +2377,11 @@ summary {
   .site-header,
   .back-to-top {
     transition-duration: 300ms !important;
+  }
+
+  .scroll-cue,
+  .scroll-cue span::after {
+    animation: none !important;
   }
 }
 

@@ -246,6 +246,71 @@ test("desktop visual details at a 1440px viewport", async (t) => {
     assert.match(font.result.value.family, /Pretendard Variable/);
   });
 
+  await t.test("gently floats the hero scroll cue and animates its mouse wheel", async () => {
+    const initial = await cdp.call("Runtime.evaluate", {
+      expression: `(() => {
+        const cue = document.querySelector('.scroll-cue');
+        const mouse = cue?.querySelector('span');
+        if (!cue || !mouse) return null;
+        const cueStyle = getComputedStyle(cue);
+        const wheelStyle = getComputedStyle(mouse, '::after');
+        const bounds = cue.getBoundingClientRect();
+        return {
+          cueAnimation: cueStyle.animationName,
+          cueDuration: Number.parseFloat(cueStyle.animationDuration),
+          cueTransform: new DOMMatrixReadOnly(cueStyle.transform).m42,
+          wheelAnimation: wheelStyle.animationName,
+          wheelDuration: Number.parseFloat(wheelStyle.animationDuration),
+          wheelTransform: new DOMMatrixReadOnly(wheelStyle.transform).m42,
+          x: bounds.left + bounds.width / 2,
+          y: bounds.top + bounds.height / 2,
+        };
+      })()`,
+      returnByValue: true,
+    });
+    assert.notEqual(initial.result.value, null);
+
+    await new Promise((resolve) => setTimeout(resolve, 350));
+    const moved = await cdp.call("Runtime.evaluate", {
+      expression: `(() => {
+        const cue = document.querySelector('.scroll-cue');
+        const mouse = cue.querySelector('span');
+        return {
+          cueTransform: new DOMMatrixReadOnly(getComputedStyle(cue).transform).m42,
+          wheelTransform: new DOMMatrixReadOnly(getComputedStyle(mouse, '::after').transform).m42,
+        };
+      })()`,
+      returnByValue: true,
+    });
+
+    const start = initial.result.value;
+    assert.notEqual(start.cueAnimation, "none");
+    assert.ok(start.cueDuration >= 1.6 && start.cueDuration <= 2, JSON.stringify(start));
+    assert.notEqual(start.wheelAnimation, "none");
+    assert.ok(start.wheelDuration >= 1.1 && start.wheelDuration <= 1.5, JSON.stringify(start));
+    assert.ok(Math.abs(moved.result.value.cueTransform - start.cueTransform) >= 1, JSON.stringify({ start, moved: moved.result.value }));
+    assert.ok(Math.abs(moved.result.value.wheelTransform - start.wheelTransform) >= 1, JSON.stringify({ start, moved: moved.result.value }));
+
+    await cdp.call("Input.dispatchMouseEvent", {
+      type: "mouseMoved",
+      x: start.x,
+      y: start.y,
+    });
+    const hovered = await cdp.call("Runtime.evaluate", {
+      expression: `(() => {
+        const cue = document.querySelector('.scroll-cue');
+        const mouse = cue.querySelector('span');
+        return {
+          cueState: getComputedStyle(cue).animationPlayState,
+          wheelState: getComputedStyle(mouse, '::after').animationPlayState,
+        };
+      })()`,
+      returnByValue: true,
+    });
+    assert.deepEqual(hovered.result.value, { cueState: "paused", wheelState: "paused" });
+    await cdp.call("Input.dispatchMouseEvent", { type: "mouseMoved", x: 0, y: 0 });
+  });
+
   await t.test("does not vertically offset the check-in phone artwork", () => {
     assert.equal(result.result.value.checkinPhoneTop, "auto");
   });
