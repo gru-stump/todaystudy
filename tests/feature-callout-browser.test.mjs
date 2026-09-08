@@ -246,7 +246,7 @@ test("desktop visual details at a 1440px viewport", async (t) => {
     assert.match(font.result.value.family, /Pretendard Variable/);
   });
 
-  await t.test("gently floats the hero scroll cue and animates its mouse wheel", async () => {
+  await t.test("keeps the hero scroll cue moving while the pointer rests on it", async () => {
     const initial = await cdp.call("Runtime.evaluate", {
       expression: `(() => {
         const cue = document.querySelector('.scroll-cue');
@@ -307,7 +307,7 @@ test("desktop visual details at a 1440px viewport", async (t) => {
       })()`,
       returnByValue: true,
     });
-    assert.deepEqual(hovered.result.value, { cueState: "paused", wheelState: "paused" });
+    assert.deepEqual(hovered.result.value, { cueState: "running", wheelState: "running" });
     await cdp.call("Input.dispatchMouseEvent", { type: "mouseMoved", x: 0, y: 0 });
   });
 

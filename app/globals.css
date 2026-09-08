@@ -674,8 +674,6 @@ summary {
   animation: scroll-wheel-move 1.3s ease-in-out infinite;
 }
 
-.scroll-cue:hover,
-.scroll-cue:hover span::after,
 .scroll-cue:focus-visible,
 .scroll-cue:focus-visible span::after {
   animation-play-state: paused;
