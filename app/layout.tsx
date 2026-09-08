@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { headers } from "next/headers";
 import "aos/dist/aos.css";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import { AosInit } from "./landing/AosInit";
+import { SmoothScroll } from "./landing/SmoothScroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,8 +63,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={geistSans.variable}>
-        <AosInit />
-        {children}
+        <SmoothScroll>
+          <AosInit />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

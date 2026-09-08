@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { flowSteps } from "./content";
 import { moveFlowIndex } from "./flow-state.mjs";
 import { SectionLabel } from "./ui";
 
 const sceneNames = ["before", "checkin", "class", "analyze", "connect"] as const;
+const FLOW_AUTOPLAY_DELAY_MS = 6000;
 
 function FlowScene({ index }: { index: number }) {
   if (index === 0) {
@@ -53,57 +54,111 @@ function FlowScene({ index }: { index: number }) {
 }
 export function ClassFlowSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isFocusPaused, setIsFocusPaused] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [restartKey, setRestartKey] = useState(0);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const tabsRef = useRef<HTMLDivElement | null>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const progress = `${(activeIndex / (flowSteps.length - 1)) * 100}%`;
 
-  function selectStep(index: number) {
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting && entry.intersectionRatio >= 0.2),
+      { threshold: [0, 0.2] },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible || isFocusPaused) return;
+
+    const timeout = window.setTimeout(() => {
+      setActiveIndex((index) => moveFlowIndex(index, 1, flowSteps.length));
+    }, FLOW_AUTOPLAY_DELAY_MS);
+    return () => window.clearTimeout(timeout);
+  }, [activeIndex, isFocusPaused, isVisible, restartKey]);
+
+  useEffect(() => {
+    const tabs = tabsRef.current;
+    const activeTab = tabRefs.current[activeIndex];
+    if (!tabs || !activeTab || !window.matchMedia("(max-width: 560px)").matches) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      const targetLeft = activeTab.offsetLeft - (tabs.clientWidth - activeTab.offsetWidth) / 2;
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      tabs.scrollTo({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        left: Math.max(0, Math.min(targetLeft, tabs.scrollWidth - tabs.clientWidth)),
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeIndex]);
+
+  function selectStep(index: number, moveFocus = false) {
     setActiveIndex(index);
-    tabRefs.current[index]?.focus();
+    setRestartKey((key) => key + 1);
+    if (moveFocus) tabRefs.current[index]?.focus();
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
     if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
     event.preventDefault();
     const direction = event.key === "ArrowRight" ? 1 : -1;
-    selectStep(moveFlowIndex(activeIndex, direction, flowSteps.length));
+    selectStep(moveFlowIndex(activeIndex, direction, flowSteps.length), true);
   }
 
   return (
-    <section className="class-flow" aria-labelledby="flow-title">
+    <section
+      aria-labelledby="flow-title"
+      className="class-flow"
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setIsFocusPaused(false);
+      }}
+      onFocusCapture={() => setIsFocusPaused(true)}
+      ref={sectionRef}
+    >
       <div className="container">
         <div className="flow-intro">
           <div className="flow-intro__copy" data-aos="fade-right">
             <SectionLabel>CRAM CLASS FLOW</SectionLabel>
             <h2 id="flow-title">학원의 하루,<br />오늘의 스터디와 함께</h2>
           </div>
-          <div className="flow-tabs" data-aos="fade-left" role="tablist" aria-label="학원 업무 흐름">
-            {flowSteps.map((step, index) => (
-              <Fragment key={step.number}>
-                <button
-                  aria-controls={"flow-panel-" + index}
-                  aria-selected={activeIndex === index}
-                  className="flow-tab"
-                  id={"flow-tab-" + index}
-                  onClick={() => selectStep(index)}
-                  onKeyDown={handleKeyDown}
-                  ref={(node) => { tabRefs.current[index] = node; }}
-                  role="tab"
-                  tabIndex={activeIndex === index ? 0 : -1}
-                  type="button"
-                >
-                  <span>{step.number}</span>
-                  <small className="flow-tab__phase">{step.phase}</small>
-                  <b>{step.tab}</b>
-                </button>
-                {index < flowSteps.length - 1 ? <i className="flow-tab-divider" aria-hidden="true" /> : null}
-              </Fragment>
-            ))}
-            <div
-              aria-hidden="true"
-              className="flow-progress"
-            >
-              <span className="flow-progress__line" style={{ width: progress }} />
-              <span className="flow-progress__dot" style={{ left: progress }} />
+          <div className="flow-tabs" data-aos="fade-left" role="tablist" aria-label="학원 업무 흐름" ref={tabsRef}>
+            <div className="flow-tabs__track">
+              {flowSteps.map((step, index) => (
+                <Fragment key={step.number}>
+                  <button
+                    aria-controls={"flow-panel-" + index}
+                    aria-selected={activeIndex === index}
+                    className="flow-tab"
+                    id={"flow-tab-" + index}
+                    onClick={() => selectStep(index)}
+                    onKeyDown={handleKeyDown}
+                    ref={(node) => { tabRefs.current[index] = node; }}
+                    role="tab"
+                    tabIndex={activeIndex === index ? 0 : -1}
+                    type="button"
+                  >
+                    <span>{step.number}</span>
+                    <small className="flow-tab__phase">{step.phase}</small>
+                    <b>{step.tab}</b>
+                  </button>
+                  {index < flowSteps.length - 1 ? <i className="flow-tab-divider" aria-hidden="true" /> : null}
+                </Fragment>
+              ))}
+              <div
+                aria-hidden="true"
+                className="flow-progress"
+              >
+                <span className="flow-progress__line" style={{ width: progress }} />
+                <span className="flow-progress__dot" style={{ left: progress }} />
+              </div>
             </div>
           </div>
         </div>

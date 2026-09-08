@@ -17,7 +17,7 @@ export function HeroDevices() {
 
 export function AttendanceDashboard() {
   return (
-    <div className="attendance-artwork">
+    <div className="attendance-artwork" data-aos="fade-left">
       <Image
         alt="오늘의스터디 출석 관리 대시보드"
         height={518}

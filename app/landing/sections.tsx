@@ -109,13 +109,21 @@ export function FeatureShowcaseSection() {
           <h2 id="showcase-title">직관적인 화면 강력한 기능</h2>
           <p>누구나 쉽게, 그러나 강력하게 사용할 수 있도록<br />오늘의 스터디는 사용성을 최우선으로 설계했습니다.</p>
         </div>
-        <div className="feature-callout feature-callout--overview">
+        <div
+          className="feature-callout feature-callout--overview"
+          data-aos="fade-up"
+          data-aos-delay="0"
+        >
           <Image aria-hidden="true" alt="" height={16} src="/img/feature-overview.svg" unoptimized width={16} />
           <div><b>한눈에 확인</b><p>필요한 정보와<br />오늘의 업무를 한 화면에서</p></div>
         </div>
         <div className="management-stage">
           <ManagementDashboard />
-          <div className="feature-callout feature-callout--action">
+          <div
+            className="feature-callout feature-callout--action"
+            data-aos="fade-up"
+            data-aos-delay="150"
+          >
             <Image aria-hidden="true" alt="" height={16} src="/img/feature-action.svg" unoptimized width={16} />
             <div><b>빠르게 처리</b><p>반복되는 업무는 줄이고,<br />클릭은 최소한으로</p></div>
           </div>
@@ -194,6 +202,33 @@ function PriceCard({ index }: { index: number }) {
   );
 }
 
+function PricingPointIcon({ kind }: { kind: "trial" | "consult" | "security" }) {
+  if (kind === "trial") {
+    return (
+      <svg className="pricing-point__icon" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+        <rect x="3.5" y="5.5" width="17" height="15" rx="2" />
+        <path d="M8 3.5v4M16 3.5v4M3.5 9.5h17M8 15l2.2 2.2L16 12" />
+      </svg>
+    );
+  }
+
+  if (kind === "consult") {
+    return (
+      <svg className="pricing-point__icon" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+        <path d="M21 11.5a8.1 8.1 0 0 1-8.5 8A9.5 9.5 0 0 1 8 18.3L3 21l1.7-4.6A8.2 8.2 0 1 1 21 11.5Z" />
+        <path className="pricing-point__dots" d="M8 11.5h.01M12 11.5h.01M16 11.5h.01" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className="pricing-point__icon" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
+      <path d="m8.5 12 2.2 2.2 4.8-4.8" />
+    </svg>
+  );
+}
+
 export function PricingSection() {
   return (
     <section className="pricing" id="pricing" aria-labelledby="pricing-title">
@@ -203,9 +238,9 @@ export function PricingSection() {
           <h2 id="pricing-title">공부 관리,<br />이제는<br /><em>시스템</em>의 차이</h2>
           <p>오늘의스터디는 학습 관리부터 성과 분석까지<br />학원 운영에 필요한 모든 기능을 제공합니다.<br />규모와 목적에 맞는 플랜을 선택해보세요.</p>
           <div className="pricing-points">
-            <div className="pricing-point"><span aria-hidden="true">▣</span><div><b>14일 무료 체험</b><small>모든 플랜 동일 제공</small></div></div>
-            <div className="pricing-point"><span aria-hidden="true">⊖</span><div><b>도입 상담 가능</b><small>전담 컨설턴트 1:1상담</small></div></div>
-            <div className="pricing-point"><span aria-hidden="true">◇</span><div><b>안심하고 사용</b><small>데이터 보안ㆍ안정성 보장</small></div></div>
+            <div className="pricing-point"><span><PricingPointIcon kind="trial" /></span><div><b>14일 무료 체험</b><small>모든 플랜 동일 제공</small></div></div>
+            <div className="pricing-point"><span><PricingPointIcon kind="consult" /></span><div><b>도입 상담 가능</b><small>전담 컨설턴트 1:1상담</small></div></div>
+            <div className="pricing-point"><span><PricingPointIcon kind="security" /></span><div><b>안심하고 사용</b><small>데이터 보안ㆍ안정성 보장</small></div></div>
           </div>
         </div>
         <div className="pricing-cards" data-aos="fade-left">
