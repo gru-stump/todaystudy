@@ -1,4 +1,6 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
+import { assetPath } from "./asset-path.mjs";
 import { benefits, pricingPlans, testimonials } from "./content";
 import {
   AttendanceDashboard,
@@ -59,7 +61,7 @@ export function BenefitsSection() {
                 alt=""
                 className="benefit-card__icon"
                 height={48}
-                src={benefit.icon}
+                src={assetPath(benefit.icon)}
                 unoptimized
                 width={48}
               />
@@ -114,7 +116,7 @@ export function FeatureShowcaseSection() {
           data-aos="fade-up"
           data-aos-delay="0"
         >
-          <Image aria-hidden="true" alt="" height={16} src="/img/feature-overview.svg" unoptimized width={16} />
+          <Image aria-hidden="true" alt="" height={16} src={assetPath("/img/feature-overview.svg")} unoptimized width={16} />
           <div><b>한눈에 확인</b><p>필요한 정보와<br />오늘의 업무를 한 화면에서</p></div>
         </div>
         <div className="management-stage">
@@ -124,7 +126,7 @@ export function FeatureShowcaseSection() {
             data-aos="fade-up"
             data-aos-delay="150"
           >
-            <Image aria-hidden="true" alt="" height={16} src="/img/feature-action.svg" unoptimized width={16} />
+            <Image aria-hidden="true" alt="" height={16} src={assetPath("/img/feature-action.svg")} unoptimized width={16} />
             <div><b>빠르게 처리</b><p>반복되는 업무는 줄이고,<br />클릭은 최소한으로</p></div>
           </div>
         </div>
@@ -154,7 +156,7 @@ export function TestimonialsSection() {
                 alt={testimonial.name + " 인터뷰"}
                 className="testimonial-card__portrait"
                 height={testimonial.imageHeight}
-                src={testimonial.image}
+                src={assetPath(testimonial.image)}
                 unoptimized
                 width={testimonial.imageWidth}
               />
@@ -206,11 +208,11 @@ function PricingPointIcon({ kind }: { kind: "trial" | "consult" | "security" }) 
   return (
     <Image
       className="pricing-point__icon"
-      src={{
+      src={assetPath({
         trial: "/img/icon_calendar.svg",
         consult: "/img/icon_comment.svg",
         security: "/img/icon_shield.svg",
-      }[kind]}
+      }[kind])}
       alt=""
       width={30}
       height={30}
@@ -225,7 +227,7 @@ export function PricingSection() {
       <div className="container pricing__grid">
         <div className="pricing__copy" data-aos="fade-right">
           <SectionLabel>PRICING</SectionLabel>
-          <h2 id="pricing-title">공부 관리,<br />이제는<br /><em>시스템</em>의 차이</h2>
+          <h2 id="pricing-title">공부 관리,<br />이제는<br /><em style={{ "--pricing-drawing": `url(${assetPath("/img/pricong_drawing.svg")})` } as CSSProperties}>시스템</em>의 차이</h2>
           <p>오늘의스터디는 학습 관리부터 성과 분석까지<br />학원 운영에 필요한 모든 기능을 제공합니다.<br />규모와 목적에 맞는 플랜을 선택해보세요.</p>
           <div className="pricing-points">
             <div className="pricing-point"><span><PricingPointIcon kind="trial" /></span><div><b>14일 무료 체험</b><small>모든 플랜 동일 제공</small></div></div>
@@ -250,7 +252,7 @@ export function FinalCtaSection() {
     <section
       className="final-cta"
       aria-labelledby="final-cta-title"
-      style={{ backgroundImage: "url('/img/cta_bg.png')" }}
+      style={{ backgroundImage: `url(${assetPath("/img/cta_bg.png")})` }}
     >
       <div className="container final-cta__inner" data-aos="fade-up">
         <SectionLabel>PRICING</SectionLabel>
@@ -278,14 +280,14 @@ export function Footer() {
         <address className="footer-contact">
           <b>문의하기</b>
           <div className="footer-contact__row">
-            <Image alt="" height={24} src="/img/footer-phone.svg" unoptimized width={24} />
+            <Image alt="" height={24} src={assetPath("/img/footer-phone.svg")} unoptimized width={24} />
             <div>
               <a href="tel:0519398154">051.939.8154</a>
               <small className="footer-contact__hours">평일 09:00 ~ 18:00&nbsp; · &nbsp;주말/공휴일 휴무</small>
             </div>
           </div>
           <div className="footer-contact__row">
-            <Image alt="" height={24} src="/img/footer-email.svg" unoptimized width={24} />
+            <Image alt="" height={24} src={assetPath("/img/footer-email.svg")} unoptimized width={24} />
             <a href="mailto:sales@primers.co.kr">sales@primers.co.kr</a>
           </div>
         </address>

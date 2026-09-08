@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { assetPath } from "./asset-path.mjs";
 
 export function BrandMark() {
   return (
@@ -7,7 +8,7 @@ export function BrandMark() {
       <Image
         alt=""
         height={26}
-        src="/img/todaystudy_logo.svg"
+        src={assetPath("/img/todaystudy_logo.svg")}
         unoptimized
         width={168}
       />

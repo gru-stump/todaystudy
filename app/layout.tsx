@@ -5,6 +5,7 @@ import "aos/dist/aos.css";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { AosInit } from "./landing/AosInit";
+import { assetPath } from "./landing/asset-path.mjs";
 import { SmoothScroll } from "./landing/SmoothScroll";
 
 const geistSans = Geist({
@@ -13,6 +14,43 @@ const geistSans = Geist({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
+  if (process.env.NEXT_PUBLIC_GITHUB_PAGES === "true") {
+    const origin =
+      process.env.NEXT_PUBLIC_SITE_URL ??
+      "https://gru-stump.github.io/todaystudy";
+    const imageUrl = new URL(assetPath("/og.png"), `${origin}/`).toString();
+    const title = "오늘의스터디 | 학원 운영 관리 플랫폼";
+    const description =
+      "학생의 오늘을 기록하고 내일의 성장을 만드는 학원 운영 관리 플랫폼";
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        type: "website",
+        locale: "ko_KR",
+        siteName: "오늘의스터디",
+        url: origin,
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: "오늘의스터디 학원 운영 관리 플랫폼",
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [imageUrl],
+      },
+    };
+  }
+
   const requestHeaders = await headers();
   const host =
     requestHeaders.get("x-forwarded-host") ??
@@ -63,7 +101,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+        <link rel="icon" href={assetPath("/favicon.svg?v=2")} type="image/svg+xml" />
       </head>
       <body className={geistSans.variable}>
         <SmoothScroll>

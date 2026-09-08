@@ -1740,7 +1740,7 @@ summary {
   left: -12px;
   width: 175px;
   height: 44px;
-  background: url("/img/pricong_drawing.svg") center / 100% 100% no-repeat;
+  background: var(--pricing-drawing) center / 100% 100% no-repeat;
   content: "";
 }
 

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Fragment, useEffect, useRef, useState } from "react";
+import { assetPath } from "./asset-path.mjs";
 import { flowSteps } from "./content";
 import { moveFlowIndex } from "./flow-state.mjs";
 import { SectionLabel } from "./ui";
@@ -13,7 +14,7 @@ function FlowScene({ index }: { index: number }) {
   if (index === 0) {
     return (
       <div className="flow-scene flow-scene--before">
-        <Image alt="수업 준비 화면" height={332} src="/img/cramclassflow_01.png" unoptimized width={482} />
+        <Image alt="수업 준비 화면" height={332} src={assetPath("/img/cramclassflow_01.png")} unoptimized width={482} />
       </div>
     );
   }
@@ -21,8 +22,8 @@ function FlowScene({ index }: { index: number }) {
   if (index === 1) {
     return (
       <div className="flow-scene flow-scene--checkin">
-        <Image className="flow-scene__phone" alt="학생 등원 체크인 화면" height={1077} src="/img/cramclassflow_02-1.png" unoptimized width={690} />
-        <Image className="flow-scene__photo" alt="학생의 등원을 확인하는 선생님" height={888} src="/img/cramclassflow_02-2.png" unoptimized width={897} />
+        <Image className="flow-scene__phone" alt="학생 등원 체크인 화면" height={1077} src={assetPath("/img/cramclassflow_02-1.png")} unoptimized width={690} />
+        <Image className="flow-scene__photo" alt="학생의 등원을 확인하는 선생님" height={888} src={assetPath("/img/cramclassflow_02-2.png")} unoptimized width={897} />
       </div>
     );
   }
@@ -30,9 +31,9 @@ function FlowScene({ index }: { index: number }) {
   if (index === 2) {
     return (
       <div className="flow-scene flow-scene--class">
-        <Image className="flow-scene__class-bg" alt="수업을 진행하는 선생님" height={933} src="/img/cramclassflow_03_bg.png" unoptimized width={2289} />
-        <Image className="flow-scene__participation" alt="학생 참여 현황" height={390} src="/img/cramclassflow_03_people.png" unoptimized width={774} />
-        <Image className="flow-scene__memo" alt="수업 메모 기록" height={357} src="/img/cramclassflow_03_memo.png" unoptimized width={774} />
+        <Image className="flow-scene__class-bg" alt="수업을 진행하는 선생님" height={933} src={assetPath("/img/cramclassflow_03_bg.png")} unoptimized width={2289} />
+        <Image className="flow-scene__participation" alt="학생 참여 현황" height={390} src={assetPath("/img/cramclassflow_03_people.png")} unoptimized width={774} />
+        <Image className="flow-scene__memo" alt="수업 메모 기록" height={357} src={assetPath("/img/cramclassflow_03_memo.png")} unoptimized width={774} />
       </div>
     );
   }
@@ -40,15 +41,15 @@ function FlowScene({ index }: { index: number }) {
   if (index === 3) {
     return (
       <div className="flow-scene flow-scene--analyze">
-        <Image className="flow-scene__dashboard" alt="학생 성장 분석 대시보드" height={1050} src="/img/cramclassflow_04_dashboard.png" unoptimized width={1656} />
-        <Image className="flow-scene__counsel" alt="학습 결과를 상담하는 선생님과 학생" height={600} src="/img/cramclassflow_04_people.png" unoptimized width={801} />
+        <Image className="flow-scene__dashboard" alt="학생 성장 분석 대시보드" height={1050} src={assetPath("/img/cramclassflow_04_dashboard.png")} unoptimized width={1656} />
+        <Image className="flow-scene__counsel" alt="학습 결과를 상담하는 선생님과 학생" height={600} src={assetPath("/img/cramclassflow_04_people.png")} unoptimized width={801} />
       </div>
     );
   }
 
   return (
     <div className="flow-scene flow-scene--connect">
-      <Image alt="학부모가 수업 소식을 확인하는 모습" height={333} src="/img/cramclassflow_05_bg.png" unoptimized width={763} />
+      <Image alt="학부모가 수업 소식을 확인하는 모습" height={333} src={assetPath("/img/cramclassflow_05_bg.png")} unoptimized width={763} />
     </div>
   );
 }
@@ -178,7 +179,7 @@ export function ClassFlowSection() {
                 <ul>
                   {step.checklist.map((item) => (
                     <li key={item}>
-                      <Image aria-hidden="true" alt="" height={20} src="/img/flow_check.svg" unoptimized width={20} />
+                      <Image aria-hidden="true" alt="" height={20} src={assetPath("/img/flow_check.svg")} unoptimized width={20} />
                       {item}
                     </li>
                   ))}
@@ -202,7 +203,7 @@ export function ClassFlowSection() {
                 type="button"
               >
                 {step.ctaLabel}
-                <Image aria-hidden="true" alt="" height={16} src="/img/flow_arrow.svg" unoptimized width={16} />
+                <Image aria-hidden="true" alt="" height={16} src={assetPath("/img/flow_arrow.svg")} unoptimized width={16} />
               </button>
             </div>
           </div>

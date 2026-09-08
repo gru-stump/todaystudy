@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { assetPath } from "./asset-path.mjs";
 
 export function HeroDevices() {
   return (
@@ -7,7 +8,7 @@ export function HeroDevices() {
         alt="오늘의스터디 태블릿과 모바일 학습 관리 화면"
         className="hero-devices__image"
         height={2000}
-        src="/img/hero_mockup.png"
+        src={assetPath("/img/hero_mockup.png")}
         unoptimized
         width={3000}
       />
@@ -21,7 +22,7 @@ export function AttendanceDashboard() {
       <Image
         alt="오늘의스터디 출석 관리 대시보드"
         height={518}
-        src="/img/features_moockup.png"
+        src={assetPath("/img/features_moockup.png")}
         unoptimized
         width={875}
       />
@@ -35,7 +36,7 @@ export function ManagementDashboard() {
       <Image
         alt="오늘의스터디 학원 통합 관리 대시보드"
         height={711}
-        src="/img/smartsimple_mockup.png"
+        src={assetPath("/img/smartsimple_mockup.png")}
         unoptimized
         width={2049}
       />
